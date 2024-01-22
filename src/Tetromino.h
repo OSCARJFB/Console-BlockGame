@@ -1,10 +1,5 @@
 #ifndef TETROMINO_H
 #define TETROMINO_H
-#include <stdlib.h>
-
-#define width 10
-
-extern unsigned int _positions[4][4];
 
 enum Type
 {
@@ -13,6 +8,14 @@ enum Type
 	TSHAPE,
 	LSHAPE,
 	SKEW
+};
+
+enum State
+{
+	FIRST,
+	SECOND,
+	THIRD,
+	FOURTH
 };
 
 typedef struct Vector2
@@ -26,5 +29,7 @@ typedef struct Tetromino
 	unsigned int type;
 	unsigned int state;
 } Tetromino;
+
+void rotate(Tetromino* tetromino);
 
 #endif

@@ -1,6 +1,6 @@
 #include "Tetromino.h"
 
-static void set_1_Straight(Tetromino* tetromino, unsigned int x, unsigned int y)
+static void set_1_straight(Tetromino* tetromino, unsigned int x, unsigned int y)
 {
 	tetromino->vector2[0].y = y;
 	tetromino->vector2[0].x = x;
@@ -15,7 +15,7 @@ static void set_1_Straight(Tetromino* tetromino, unsigned int x, unsigned int y)
 	tetromino->vector2[3].x = x + 3;
 }
 
-static void set_2_Straight(Tetromino* tetromino)
+static void set_2_straight(Tetromino* tetromino)
 {
 	unsigned int x = tetromino->vector2[3].x;
 	unsigned int y = tetromino->vector2[3].y - 1;
@@ -33,7 +33,7 @@ static void set_2_Straight(Tetromino* tetromino)
 	tetromino->vector2[3].x = x;
 }
 
-static void set_3_Straight(Tetromino* tetromino)
+static void set_3_straight(Tetromino* tetromino)
 {
 	unsigned int x = tetromino->vector2[2].x - 3;
 	unsigned int y = tetromino->vector2[2].y;
@@ -51,7 +51,7 @@ static void set_3_Straight(Tetromino* tetromino)
 	tetromino->vector2[3].x = x + 3;
 }
 
-static void set_4_Straight(Tetromino* tetromino)
+static void set_4_straight(Tetromino* tetromino)
 {
 	unsigned int x = tetromino->vector2[1].x;
 	unsigned int y = tetromino->vector2[1].y - 2;
@@ -69,47 +69,81 @@ static void set_4_Straight(Tetromino* tetromino)
 	tetromino->vector2[3].x = x;
 }
 
-void straightRotation(Tetromino* tetromino)
+static void straightRotation(Tetromino* tetromino)
 {
 	switch (tetromino->state)
 	{
-	case FIRST:
-		set_1_Straight(tetromino, 3, 3);
-		tetromino->state = SECOND;
+	case first:
+		set_1_straight(tetromino, 3, 3);
+		tetromino->state = second;
 		break;
-	case SECOND:
-		set_2_Straight(tetromino);
-		tetromino->state = THIRD;
+	case second:
+		set_2_straight(tetromino);
+		tetromino->state = third;
 		break;
-	case THIRD:
-		set_3_Straight(tetromino);
-		tetromino->state = FOURTH;
+	case third:
+		set_3_straight(tetromino);
+		tetromino->state = fourth;
 		break;
-	case FOURTH:
-		set_4_Straight(tetromino);
-		tetromino->state = FIRST;
+	case fourth:
+		set_4_straight(tetromino);
+		tetromino->state = first;
 		break;
 	}
 }
 
-void rotate(Tetromino* tetromino)
+Tetromino spawn(void)
 {
-	switch (tetromino->type)
+	// Tetromino tetromino = { rand() % 4, first};
+	Tetromino tetromino = { straight, first };
+
+	switch (tetromino.type)
 	{
-	case STRAIGHT:
-		straightRotation(tetromino);
+	case straight:
+		straightRotation(&tetromino);
 		break;
-	case SQUARE:
+	case square:
 		// squareRotation(tetromino);
 		break;
-	case TSHAPE:
-		//setBaseTShape(tetromino, 1, 0);
+	case tshape:
+		//setBasetshape(tetromino, 1, 0);
 		break;
-	case LSHAPE:
-		//setBaseLShape(tetromino, 1, 0);
+	case lshape:
+		//setBaselshape(tetromino, 1, 0);
 		break;
-	case SKEW:
-		//setBaseLSkew(tetromino, 1, 0);
+	case skew:
+		//setBaseLskew(tetromino, 1, 0);
 		break;
 	}
+
+	return tetromino;
+}
+
+bool rotate(Tetromino* tetromino, char c) 
+{
+	if (c != 32)
+	{
+		return false;
+	}
+
+	switch (tetromino->type)
+	{
+	case straight:
+		straightRotation(tetromino);
+		break;
+	case square:
+		// squareRotation(tetromino);
+		break;
+	case tshape:
+		//setBasetshape(tetromino, 1, 0);
+		break;
+	case lshape:
+		//setBaselshape(tetromino, 1, 0);
+		break;
+	case skew:
+		//setBaseLskew(tetromino, 1, 0);
+		break;
+	}
+
+	return true;
 }

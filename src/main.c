@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdbool.h>
 #include "Tetromino.h"
 #include "Console.h"
+#include "Keys.h"
 
 #define HEIGHT 24 // 16 or 24 cells in height
 #define WIDTH 11 // 10 cells width + newline
@@ -38,26 +41,47 @@ static void printPlayField(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 	}
 }
 
+static bool framelock(void)
+{
+	static time_t start = 0, end = 0;
+
+	if (start == 0)
+	{
+		start = time(NULL);
+		return false;
+	}
+
+	end = time(NULL);
+	double diff = difftime(end, start);
+	if (diff >= 1.0)
+	{
+		start = end = 0;
+		return true;
+	}
+
+	return false;
+}
+
 int main(void)
 {
-	Tetromino tetromino;
-	tetromino.type = STRAIGHT;
-	tetromino.state = FIRST;
+	char c = 0;
 	char playField[HEIGHT][WIDTH];
 
+	srand((unsigned int)time(NULL));
 	initConsole();
 	initPlayField(playField);
+	
+	Tetromino tetromino = spawn();
 
-	char c;
-	rotate(&tetromino);
 	while ((c = kbhit()) != EOF)
 	{
-		if (c == 32)
+		if (!framelock() && !rotate(&tetromino, c))
 		{
-			rotate(&tetromino);
+			continue;
 		}
-		printPlayField(playField, &tetromino);
+
 		system("cls");
+		printPlayField(playField, &tetromino);
 	}
 
 	return 0;

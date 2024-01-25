@@ -1,21 +1,27 @@
 #ifndef TETROMINO_H
 #define TETROMINO_H
 
+#include <stdlib.h>
+#include <time.h>
+#include <stdbool.h>
+
+#include "Keys.h"
+
 enum Type
 {
-	STRAIGHT,
-	SQUARE,
-	TSHAPE,
-	LSHAPE,
-	SKEW
+	straight,
+	square,
+	tshape,
+	lshape,
+	skew
 };
 
 enum State
 {
-	FIRST,
-	SECOND,
-	THIRD,
-	FOURTH
+	first,
+	second,
+	third,
+	fourth
 };
 
 typedef struct Vector2
@@ -30,6 +36,7 @@ typedef struct Tetromino
 	unsigned int state;
 } Tetromino;
 
-void rotate(Tetromino* tetromino);
+Tetromino spawn(void);
+bool rotate(Tetromino* tetromino, char c);
 
 #endif

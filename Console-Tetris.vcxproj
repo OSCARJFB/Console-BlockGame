@@ -135,11 +135,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Collision.c" />
     <ClCompile Include="src\Console.c" />
     <ClCompile Include="src\main.c" />
     <ClCompile Include="src\Tetromino.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Collision.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Keys.h" />
     <ClInclude Include="src\Tetromino.h" />

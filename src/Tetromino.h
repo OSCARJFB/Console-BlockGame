@@ -37,6 +37,7 @@ typedef struct Tetromino
 } Tetromino;
 
 Tetromino spawn(void);
+void reverseState(Tetromino* tetromino);
 bool rotate(Tetromino* tetromino, char c);
 
 #endif

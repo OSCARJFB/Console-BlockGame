@@ -92,40 +92,8 @@ static void straightRotation(Tetromino* tetromino)
 	}
 }
 
-Tetromino spawn(void)
+static void handleByType(Tetromino* tetromino)
 {
-	// Tetromino tetromino = { rand() % 4, first};
-	Tetromino tetromino = { straight, first };
-
-	switch (tetromino.type)
-	{
-	case straight:
-		straightRotation(&tetromino);
-		break;
-	case square:
-		// squareRotation(tetromino);
-		break;
-	case tshape:
-		//setBasetshape(tetromino, 1, 0);
-		break;
-	case lshape:
-		//setBaselshape(tetromino, 1, 0);
-		break;
-	case skew:
-		//setBaseLskew(tetromino, 1, 0);
-		break;
-	}
-
-	return tetromino;
-}
-
-bool rotate(Tetromino* tetromino, char c) 
-{
-	if (c != 32)
-	{
-		return false;
-	}
-
 	switch (tetromino->type)
 	{
 	case straight:
@@ -144,6 +112,38 @@ bool rotate(Tetromino* tetromino, char c)
 		//setBaseLskew(tetromino, 1, 0);
 		break;
 	}
+}
 
+Tetromino spawn(void)
+{
+	// Tetromino tetromino = { rand() % 4, first};
+	Tetromino tetromino = { straight, first };
+	handleByType(&tetromino);
+	return tetromino;
+}
+
+void reverseState(Tetromino* tetromino)
+{
+	switch (tetromino->state)
+	{
+	case first:
+		tetromino->state = fourth;
+	case second:
+		tetromino->state = first;
+	case third:
+		tetromino->state = second;
+	case fourth:
+		tetromino->state = third;
+	}
+	handleByType(tetromino);
+}
+
+bool rotate(Tetromino* tetromino, char c) 
+{
+	if (c != 32)
+	{
+		return false;
+	}
+	handleByType(tetromino);
 	return true;
 }

@@ -2,11 +2,18 @@
 #include <time.h>
 #include <stdbool.h>
 #include "Tetromino.h"
+#include "Collision.h"
 #include "Console.h"
 #include "Keys.h"
 
-#define HEIGHT 24 // 16 or 24 cells in height
-#define WIDTH 11 // 10 cells width + newline
+
+#ifndef HEIGHT
+#define HEIGHT 20
+#endif
+
+#ifndef WIDTH
+#define WIDTH 20
+#endif
 
 static void initPlayField(char playField[HEIGHT][WIDTH])
 {
@@ -14,30 +21,47 @@ static void initPlayField(char playField[HEIGHT][WIDTH])
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (j != WIDTH - 1)
+			if (j == 0 || j == WIDTH - 1 || (i == 0 && j < WIDTH - 1) || (i == 0 && i < HEIGHT - 1))
 			{
-				playField[i][j] = ' ';
+				playField[i][j] = 'B';
 				continue;
 			}
-			playField[i][j] = '\n';
+
+			if (j != WIDTH)
+			{
+				playField[i][j] = ' ';
+			}
 		}
 	}
+}
+
+static inline void clearScreen(void)
+{
+#ifdef _WIN32
+	system("cls");
+#elif __linux__
+	system("clear");
+#endif
 }
 
 static void printPlayField(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	int curVec = 0;
+
+	clearScreen();
 	for (int i = 0; i < HEIGHT; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			printf("%c", playField[i][j]);
 			if (tetromino->vector2[curVec].y == i && tetromino->vector2[curVec].x == j)
 			{
-				printf("%c", 'X');
+				printf("%c", 'T');
 				++curVec;
+				continue;
 			}
+			printf("%c", playField[i][j]);
 		}
+		printf("\n");
 	}
 }
 
@@ -79,8 +103,8 @@ int main(void)
 		{
 			continue;
 		}
+		handleCollision(playField, &tetromino);
 
-		system("cls");
 		printPlayField(playField, &tetromino);
 	}
 

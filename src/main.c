@@ -21,9 +21,9 @@ static void initPlayField(char playField[HEIGHT][WIDTH])
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (j == 0 || j == WIDTH - 1 || (i == 0 && j < WIDTH - 1) || (i == 0 && i < HEIGHT - 1))
+			if (j == 0 || j == WIDTH - 1 || i == 0 || i == HEIGHT - 1)
 			{
-				playField[i][j] = 'B';
+				playField[i][j] = '=';
 				continue;
 			}
 
@@ -99,12 +99,20 @@ int main(void)
 
 	while ((c = kbhit()) != EOF)
 	{
-		if (!framelock() && !rotate(&tetromino, c))
+		if (rotate(&tetromino, c))
 		{
-			continue;
+ 			handleRotationCollision(playField, &tetromino);
 		}
-		handleCollision(playField, &tetromino);
+		else
+		{
+			if (!framelock())
+			{
+				continue;
+			}
+			gravity(&tetromino);
+		}
 
+		handleBottomCollision(playField, &tetromino);
 		printPlayField(playField, &tetromino);
 	}
 

@@ -12,6 +12,7 @@
 #define WIDTH 20
 #endif
 
-void handleCollision(char **playField, Tetromino* tetromino);
+void handleBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+void handleRotationCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
 
 #endif

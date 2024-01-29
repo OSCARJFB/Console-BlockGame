@@ -17,8 +17,8 @@ static void set_1_straight(Tetromino* tetromino, unsigned int x, unsigned int y)
 
 static void set_2_straight(Tetromino* tetromino)
 {
-	unsigned int x = tetromino->vector2[3].x;
-	unsigned int y = tetromino->vector2[3].y - 1;
+	unsigned int x = tetromino->vector2[2].x;
+	unsigned int y = tetromino->vector2[2].y - 1;
 
 	tetromino->vector2[0].y = y;
 	tetromino->vector2[0].x = x;
@@ -74,7 +74,7 @@ static void straightRotation(Tetromino* tetromino)
 	switch (tetromino->state)
 	{
 	case first:
-		set_1_straight(tetromino, 3, 3);
+		set_1_straight(tetromino, tetromino->vector2[1].x, tetromino->vector2[1].y);
 		tetromino->state = second;
 		break;
 	case second:
@@ -118,6 +118,8 @@ Tetromino spawn(void)
 {
 	// Tetromino tetromino = { rand() % 4, first};
 	Tetromino tetromino = { straight, first };
+	tetromino.vector2[1].y = 1;
+	tetromino.vector2[1].x = 3;
 	handleByType(&tetromino);
 	return tetromino;
 }
@@ -140,10 +142,32 @@ void reverseState(Tetromino* tetromino)
 
 bool rotate(Tetromino* tetromino, char c) 
 {
-	if (c != 32)
+ 	if (c != SPACE_KEY)
 	{
 		return false;
 	}
 	handleByType(tetromino);
 	return true;
+}
+
+void setToStatic(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
+{
+	playField[tetromino->vector2[0].y][tetromino->vector2[0].x] = 'X';
+	playField[tetromino->vector2[1].y][tetromino->vector2[1].x] = 'X';
+	playField[tetromino->vector2[2].y][tetromino->vector2[2].x] = 'X';
+	playField[tetromino->vector2[3].y][tetromino->vector2[3].x] = 'X';
+	tetromino->state = dead;
+}
+
+void gravity(Tetromino* tetromino)
+{
+	if (tetromino->state == dead)
+	{
+		return;
+	}
+
+	tetromino->vector2[0].y += 1; 
+	tetromino->vector2[1].y += 1;
+	tetromino->vector2[2].y += 1;
+	tetromino->vector2[3].y += 1;
 }

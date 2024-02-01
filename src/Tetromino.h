@@ -47,7 +47,7 @@ typedef struct Tetromino
 Tetromino spawn(void);
 void reverseState(Tetromino* tetromino);
 bool rotate(Tetromino* tetromino, char c);
-void setToStatic(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
 void gravity(Tetromino* tetromino);
 
 #endif

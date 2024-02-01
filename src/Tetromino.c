@@ -92,7 +92,7 @@ static void straightRotation(Tetromino* tetromino)
 	}
 }
 
-static void handleByType(Tetromino* tetromino)
+static void handleByType(const Tetromino* tetromino)
 {
 	switch (tetromino->type)
 	{
@@ -140,7 +140,7 @@ void reverseState(Tetromino* tetromino)
 	handleByType(tetromino);
 }
 
-bool rotate(Tetromino* tetromino, char c) 
+bool rotate(const Tetromino* tetromino, const char c) 
 {
  	if (c != SPACE_KEY)
 	{
@@ -150,22 +150,16 @@ bool rotate(Tetromino* tetromino, char c)
 	return true;
 }
 
-void setToStatic(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
+void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
 {
 	playField[tetromino->vector2[0].y][tetromino->vector2[0].x] = 'X';
 	playField[tetromino->vector2[1].y][tetromino->vector2[1].x] = 'X';
 	playField[tetromino->vector2[2].y][tetromino->vector2[2].x] = 'X';
 	playField[tetromino->vector2[3].y][tetromino->vector2[3].x] = 'X';
-	tetromino->state = dead;
 }
 
 void gravity(Tetromino* tetromino)
 {
-	if (tetromino->state == dead)
-	{
-		return;
-	}
-
 	tetromino->vector2[0].y += 1; 
 	tetromino->vector2[1].y += 1;
 	tetromino->vector2[2].y += 1;

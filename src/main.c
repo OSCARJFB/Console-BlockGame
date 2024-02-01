@@ -44,14 +44,13 @@ static inline void clearScreen(void)
 #endif
 }
 
-static void printPlayField(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
+static void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
 {
-	int curVec = 0;
-
+	unsigned int curVec = 0;
 	clearScreen();
-	for (int i = 0; i < HEIGHT; ++i)
+	for (unsigned int i = 0; i < HEIGHT; ++i)
 	{
-		for (int j = 0; j < WIDTH; ++j)
+		for (unsigned j = 0; j < WIDTH; ++j)
 		{
 			if (tetromino->vector2[curVec].y == i && tetromino->vector2[curVec].x == j)
 			{
@@ -76,7 +75,7 @@ static bool framelock(void)
 	}
 
 	end = time(NULL);
-	double diff = difftime(end, start);
+	const double diff = difftime(end, start);
 	if (diff >= 1.0)
 	{
 		start = end = 0;
@@ -112,7 +111,11 @@ int main(void)
 			gravity(&tetromino);
 		}
 
-		handleBottomCollision(playField, &tetromino);
+		if (isBottomCollision(playField, &tetromino))
+		{
+			tetromino = spawn();
+		}
+
 		printPlayField(playField, &tetromino);
 	}
 

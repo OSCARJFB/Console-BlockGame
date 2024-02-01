@@ -1,6 +1,7 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
+#include <stdbool.h>
 #include "Tetromino.h"
 #include "Keys.h"
 
@@ -12,7 +13,7 @@
 #define WIDTH 20
 #endif
 
-void handleBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
-void handleRotationCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+bool isBottomCollision(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
+void handleRotationCollision(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
 
 #endif

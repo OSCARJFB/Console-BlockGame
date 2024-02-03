@@ -85,6 +85,12 @@ static bool framelock(void)
 	return false;
 }
 
+#define TICK_FRAME(x)      \
+if(!x)                     \
+{				           \
+	continue;			   \
+}					       \
+
 int main(void)
 {
 	char c = 0;
@@ -98,16 +104,13 @@ int main(void)
 
 	while ((c = kbhit()) != EOF)
 	{
-		if (rotate(&tetromino, c))
+		if (rotate(&tetromino, c) || direction(&tetromino, c))
 		{
  			handleRotationCollision(playField, &tetromino);
 		}
 		else
 		{
-			if (!framelock())
-			{
-				continue;
-			}
+			TICK_FRAME(framelock())
 			gravity(&tetromino);
 		}
 

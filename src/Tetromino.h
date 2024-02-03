@@ -29,7 +29,6 @@ enum State
 	second,
 	third,
 	fourth,
-	dead
 };
 
 typedef struct Vector2
@@ -46,6 +45,7 @@ typedef struct Tetromino
 
 Tetromino spawn(void);
 void reverseState(Tetromino* tetromino);
+bool direction(const Tetromino* tetromino, const char c);
 bool rotate(Tetromino* tetromino, char c);
 void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
 void gravity(Tetromino* tetromino);

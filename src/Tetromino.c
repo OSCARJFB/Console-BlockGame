@@ -140,6 +140,63 @@ void reverseState(Tetromino* tetromino)
 	handleByType(tetromino);
 }
 
+static inline bool left(Tetromino* tetromino)
+{
+	bool isInPlayField = true;
+	isInPlayField = (tetromino->vector2[0].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[1].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[2].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[3].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
+
+	if (!isInPlayField)
+	{
+		return isInPlayField;
+	}
+
+	tetromino->vector2[0].x -= 1;
+	tetromino->vector2[1].x -= 1;
+	tetromino->vector2[2].x -= 1;
+	tetromino->vector2[3].x -= 1;
+
+	return isInPlayField;
+}
+
+static inline bool right(Tetromino* tetromino)
+{
+	bool isInPlayField = true;
+	isInPlayField = (tetromino->vector2[0].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[1].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[2].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[3].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
+
+	if (!isInPlayField)
+	{
+		return isInPlayField;
+	}
+
+	tetromino->vector2[0].x += 1;
+	tetromino->vector2[1].x += 1;
+	tetromino->vector2[2].x += 1;
+	tetromino->vector2[3].x += 1;
+
+	return isInPlayField;
+}
+
+bool direction(const Tetromino* tetromino, const char c)
+{
+	bool changeDirection = false;
+	switch (c)
+	{
+	case LEFT_KEY:
+		changeDirection = left(tetromino);
+		break;	
+	case RIGHT_KEY:
+		changeDirection = right(tetromino);
+		break;
+	}
+	return changeDirection;
+}
+
 bool rotate(const Tetromino* tetromino, const char c) 
 {
  	if (c != SPACE_KEY)

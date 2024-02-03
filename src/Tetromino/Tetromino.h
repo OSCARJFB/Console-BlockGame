@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-#include "Keys.h"
+#include "../Keys.h"
+
 
 #ifndef HEIGHT
 #define HEIGHT 20
@@ -45,9 +46,10 @@ typedef struct Tetromino
 
 Tetromino spawn(void);
 void reverseState(Tetromino* tetromino);
-bool direction(const Tetromino* tetromino, const char c);
-bool rotate(Tetromino* tetromino, char c);
-void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
+bool direction(Tetromino* tetromino, const char c);
+bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);
 void gravity(Tetromino* tetromino);
+bool isBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+void handleRotationCollision(const char playField[HEIGHT][WIDTH], Tetromino* tetromino);
 
 #endif

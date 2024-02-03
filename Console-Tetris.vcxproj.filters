@@ -18,27 +18,24 @@
     <ClCompile Include="src\main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tetromino.c">
+    <ClCompile Include="src\Tetromino\Tetromino.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Console.c">
+    <ClCompile Include="src\Console\Console.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Collision.c">
+    <ClCompile Include="src\Tetromino\Collision.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tetromino.h">
+    <ClInclude Include="src\Tetromino\Tetromino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Console.h">
+    <ClInclude Include="src\Console\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Keys.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Collision.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

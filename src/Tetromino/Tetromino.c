@@ -92,7 +92,7 @@ static void straightRotation(Tetromino* tetromino)
 	}
 }
 
-static void handleByType(const Tetromino* tetromino)
+static void handleByType(Tetromino* tetromino)
 {
 	switch (tetromino->type)
 	{
@@ -182,7 +182,7 @@ static inline bool right(Tetromino* tetromino)
 	return isInPlayField;
 }
 
-bool direction(const Tetromino* tetromino, const char c)
+bool direction(Tetromino* tetromino, const char c)
 {
 	bool changeDirection = false;
 	switch (c)
@@ -197,22 +197,15 @@ bool direction(const Tetromino* tetromino, const char c)
 	return changeDirection;
 }
 
-bool rotate(const Tetromino* tetromino, const char c) 
+bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const char c) 
 {
  	if (c != SPACE_KEY)
 	{
 		return false;
 	}
 	handleByType(tetromino);
+	handleRotationCollision(playField, tetromino);
 	return true;
-}
-
-void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
-{
-	playField[tetromino->vector2[0].y][tetromino->vector2[0].x] = 'X';
-	playField[tetromino->vector2[1].y][tetromino->vector2[1].x] = 'X';
-	playField[tetromino->vector2[2].y][tetromino->vector2[2].x] = 'X';
-	playField[tetromino->vector2[3].y][tetromino->vector2[3].x] = 'X';
 }
 
 void gravity(Tetromino* tetromino)

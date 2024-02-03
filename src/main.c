@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdbool.h>
-#include "Tetromino.h"
-#include "Collision.h"
-#include "Console.h"
+#include "Tetromino/Tetromino.h"
+#include "Console/Console.h"
 #include "Keys.h"
 
 
@@ -104,11 +103,7 @@ int main(void)
 
 	while ((c = kbhit()) != EOF)
 	{
-		if (rotate(&tetromino, c) || direction(&tetromino, c))
-		{
- 			handleRotationCollision(playField, &tetromino);
-		}
-		else
+	    if(!rotate(&tetromino, playField, c) && !direction(&tetromino, c))
 		{
 			TICK_FRAME(framelock())
 			gravity(&tetromino);

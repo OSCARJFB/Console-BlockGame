@@ -135,16 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Collision.c" />
-    <ClCompile Include="src\Console.c" />
+    <ClCompile Include="src\Tetromino\Collision.c" />
+    <ClCompile Include="src\Console\Console.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\Tetromino.c" />
+    <ClCompile Include="src\Tetromino\Tetromino.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Collision.h" />
-    <ClInclude Include="src\Console.h" />
+    <ClInclude Include="src\Console\Console.h" />
     <ClInclude Include="src\Keys.h" />
-    <ClInclude Include="src\Tetromino.h" />
+    <ClInclude Include="src\Tetromino\Tetromino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

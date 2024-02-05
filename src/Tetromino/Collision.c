@@ -1,6 +1,15 @@
-#include "Collision.h"
+#include "Tetromino.h"
 
-bool isBottomCollision(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
+
+static void lockToPlayfied(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
+{
+	playField[tetromino->vector2[0].y][tetromino->vector2[0].x] = 'X';
+	playField[tetromino->vector2[1].y][tetromino->vector2[1].x] = 'X';
+	playField[tetromino->vector2[2].y][tetromino->vector2[2].x] = 'X';
+	playField[tetromino->vector2[3].y][tetromino->vector2[3].x] = 'X';
+}
+
+bool isBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	for (unsigned int i = 0; i < HEIGHT; ++i)
 	{
@@ -22,7 +31,7 @@ bool isBottomCollision(const char playField[HEIGHT][WIDTH], const Tetromino* tet
 	return false;
 }
 
-void handleRotationCollision(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
+void handleRotationCollision(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	unsigned int vecIndex = 0;
 	for (unsigned int i = 0; i < HEIGHT; ++i)

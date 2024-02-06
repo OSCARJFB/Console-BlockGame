@@ -2,6 +2,16 @@
 
 static void set_1_straight(Tetromino* tetromino, unsigned int x, unsigned int y)
 {
+	while (x == 0)
+	{
+		++x;
+	}
+
+	if (x == WIDTH - 1)
+	{
+		x -= 4;
+	}
+
 	tetromino->vector2[0].y = y;
 	tetromino->vector2[0].x = x;
 
@@ -37,6 +47,16 @@ static void set_3_straight(Tetromino* tetromino)
 {
 	unsigned int x = tetromino->vector2[2].x - 3;
 	unsigned int y = tetromino->vector2[2].y;
+
+	while (x == 0)
+	{
+		++x;
+	}
+
+	if (x == WIDTH - 1)
+	{
+		x -= 4;
+	}
 
 	tetromino->vector2[0].y = y;
 	tetromino->vector2[0].x = x;
@@ -204,7 +224,7 @@ bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const cha
 		return false;
 	}
 	handleByType(tetromino);
-	handleRotationCollision(playField, tetromino);
+	// handleRotationCollision(playField, tetromino);
 	return true;
 }
 

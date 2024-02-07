@@ -5,7 +5,6 @@
 #include "Console/Console.h"
 #include "Keys.h"
 
-
 #ifndef HEIGHT
 #define HEIGHT 20
 #endif
@@ -45,11 +44,11 @@ static inline void clearScreen(void)
 
 static void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
 {
-	unsigned int curVec = 0;
+	int curVec = 0;
 	clearScreen();
-	for (unsigned int i = 0; i < HEIGHT; ++i)
+	for (int i = 0; i < HEIGHT; ++i)
 	{
-		for (unsigned j = 0; j < WIDTH; ++j)
+		for (int j = 0; j < WIDTH; ++j)
 		{
 			if (tetromino->vector2[curVec].y == i && tetromino->vector2[curVec].x == j)
 			{

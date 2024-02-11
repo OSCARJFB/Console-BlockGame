@@ -29,3 +29,28 @@ bool isBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 	}
 	return false;
 }
+
+int preventWallCollision(int x)
+{
+	while (x < 1)
+	{
+		++x;
+	}
+
+	if (x == WIDTH - 1)
+	{
+		x -= 4;
+	}
+
+	return x;
+}
+
+bool isCollisionAtRotation(const char playField[HEIGHT][WIDTH], const Vector2 vec[4])
+{
+	bool isCollision = false;
+	isCollision = playField[vec[0].y][vec[0].x] == 'X' || playField[vec[0].y][vec[0].x] == '=';
+	isCollision = playField[vec[1].y][vec[1].x] == 'X' || playField[vec[1].y][vec[1].x] == '=';
+	isCollision = playField[vec[2].y][vec[2].x] == 'X' || playField[vec[2].y][vec[2].x] == '=';
+	isCollision = playField[vec[3].y][vec[3].x] == 'X' || playField[vec[3].y][vec[3].x] == '=';
+	return isCollision;
+}

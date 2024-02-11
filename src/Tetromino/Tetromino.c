@@ -1,11 +1,11 @@
 #include "Tetromino.h"
 
-static void handleByType(Tetromino* tetromino)
+static void handleByType(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	switch (tetromino->type)
 	{
 	case straight:
-		straightRotation(tetromino);
+		straightRotation(playField, tetromino);
 		break;
 	case square:
 		// squareRotation(tetromino);
@@ -85,7 +85,7 @@ bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const cha
 	{
 		return false;
 	}
-	handleByType(tetromino);
+	handleByType(playField, tetromino);
 	return true;
 }
 
@@ -97,12 +97,12 @@ void gravity(Tetromino* tetromino)
 	tetromino->vector2[3].y += 1;
 }
 
-Tetromino spawn(void)
+Tetromino spawn(const char playField[HEIGHT][WIDTH])
 {
 	// Tetromino tetromino = { rand() % 4, first};
 	Tetromino tetromino = { straight, first };
 	tetromino.vector2[1].y = 1;
 	tetromino.vector2[1].x = WIDTH / 2;
-	handleByType(&tetromino);
+	handleByType(playField, &tetromino);
 	return tetromino;
 }

@@ -97,8 +97,7 @@ int main(void)
 	srand((unsigned int)time(NULL));
 	initConsole();
 	initPlayField(playField);
-	
-	Tetromino tetromino = spawn();
+	Tetromino tetromino = spawn(playField);
 
 	while ((c = kbhit()) != EOF)
 	{
@@ -110,7 +109,7 @@ int main(void)
 
 		if (isBottomCollision(playField, &tetromino))
 		{
-			tetromino = spawn();
+			tetromino = spawn(playField);
 		}
 
 		printPlayField(playField, &tetromino);

@@ -43,13 +43,12 @@ typedef struct Tetromino
 	Vector2 vector2[4];
 } Tetromino;
 
-Tetromino spawn(const char playField[HEIGHT][WIDTH]);
-bool direction(Tetromino* tetromino, const char c);
 void straightRotation(const char playField[HEIGHT][WIDTH], Tetromino* tetromino);
-bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);
 void gravity(Tetromino* tetromino);
-int preventWallCollision(int x);
-bool isBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
-bool isCollisionAtRotation(const char playField[HEIGHT][WIDTH], const Vector2 vec[4]);
+bool direction(const char playField[HEIGHT][WIDTH], const char c, Tetromino* tetromino);
+bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);
+bool isBottomCollision(char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
+bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[4]);
+Tetromino spawn(const char playField[HEIGHT][WIDTH]);
 
 #endif

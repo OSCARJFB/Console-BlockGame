@@ -101,7 +101,7 @@ int main(void)
 
 	while ((c = kbhit()) != EOF)
 	{
-	    if(!rotate(&tetromino, playField, c) && !direction(&tetromino, c))
+	    if(!rotate(&tetromino, playField, c) && !direction(playField, c, &tetromino))
 		{
 			TICK_FRAME(framelock())
 			gravity(&tetromino);

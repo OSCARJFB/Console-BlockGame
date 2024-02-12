@@ -1,156 +1,95 @@
 #include "Tetromino.h"
 
-static void set_1_straight(Tetromino* tetromino, unsigned int x, unsigned int y)
-{
-	tetromino->vector2[0].y = y;
-	tetromino->vector2[0].x = x;
-
-	tetromino->vector2[1].y = y;
-	tetromino->vector2[1].x = x + 1;
-
-	tetromino->vector2[2].y = y;
-	tetromino->vector2[2].x = x + 2;
-
-	tetromino->vector2[3].y = y;
-	tetromino->vector2[3].x = x + 3;
-}
-
-static void set_2_straight(Tetromino* tetromino)
-{
-	unsigned int x = tetromino->vector2[2].x;
-	unsigned int y = tetromino->vector2[2].y - 1;
-
-	tetromino->vector2[0].y = y;
-	tetromino->vector2[0].x = x;
-
-	tetromino->vector2[1].y = y + 1;
-	tetromino->vector2[1].x = x;
-
-	tetromino->vector2[2].y = y + 2;
-	tetromino->vector2[2].x = x;
-
-	tetromino->vector2[3].y = y + 3;
-	tetromino->vector2[3].x = x;
-}
-
-static void set_3_straight(Tetromino* tetromino)
-{
-	unsigned int x = tetromino->vector2[2].x - 3;
-	unsigned int y = tetromino->vector2[2].y;
-
-	tetromino->vector2[0].y = y;
-	tetromino->vector2[0].x = x;
-
-	tetromino->vector2[1].y = y;
-	tetromino->vector2[1].x = x + 1;
-
-	tetromino->vector2[2].y = y;
-	tetromino->vector2[2].x = x + 2;
-
-	tetromino->vector2[3].y = y;
-	tetromino->vector2[3].x = x + 3;
-}
-
-static void set_4_straight(Tetromino* tetromino)
-{
-	unsigned int x = tetromino->vector2[1].x;
-	unsigned int y = tetromino->vector2[1].y - 2;
-
-	tetromino->vector2[0].y = y;
-	tetromino->vector2[0].x = x;
-
-	tetromino->vector2[1].y = y + 1;
-	tetromino->vector2[1].x = x;
-
-	tetromino->vector2[2].y = y + 2;
-	tetromino->vector2[2].x = x;
-
-	tetromino->vector2[3].y = y + 3;
-	tetromino->vector2[3].x = x;
-}
-
-static void straightRotation(Tetromino* tetromino)
-{
-	switch (tetromino->state)
-	{
-	case first:
-		set_1_straight(tetromino, tetromino->vector2[1].x, tetromino->vector2[1].y);
-		tetromino->state = second;
-		break;
-	case second:
-		set_2_straight(tetromino);
-		tetromino->state = third;
-		break;
-	case third:
-		set_3_straight(tetromino);
-		tetromino->state = fourth;
-		break;
-	case fourth:
-		set_4_straight(tetromino);
-		tetromino->state = first;
-		break;
-	}
-}
-
-static void handleByType(Tetromino* tetromino)
+static void handleByType(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	switch (tetromino->type)
 	{
 	case straight:
-		straightRotation(tetromino);
+		straightRotation(playField, tetromino);
 		break;
 	case square:
-		// squareRotation(tetromino);
+		// squareRotation(playField, tetromino);
 		break;
 	case tshape:
-		//setBasetshape(tetromino, 1, 0);
+		// tshapeRotation(playField, tetromino);
 		break;
 	case lshape:
-		//setBaselshape(tetromino, 1, 0);
+		// lshapeRotation(playField, tetromino);
 		break;
 	case skew:
-		//setBaseLskew(tetromino, 1, 0);
+		// skewRotation(playField, tetromino);
 		break;
 	}
 }
 
-Tetromino spawn(void)
+static inline void lockToPlayfied(char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
 {
-	// Tetromino tetromino = { rand() % 4, first};
-	Tetromino tetromino = { straight, first };
-	tetromino.vector2[1].y = 1;
-	tetromino.vector2[1].x = 3;
-	handleByType(&tetromino);
-	return tetromino;
+	playField[tetromino->vector2[0].y][tetromino->vector2[0].x] = 'X';
+	playField[tetromino->vector2[1].y][tetromino->vector2[1].x] = 'X';
+	playField[tetromino->vector2[2].y][tetromino->vector2[2].x] = 'X';
+	playField[tetromino->vector2[3].y][tetromino->vector2[3].x] = 'X';
+	tetromino = NULL;
 }
 
-void reverseState(Tetromino* tetromino)
+bool isBottomCollision(char playField[HEIGHT][WIDTH], const Tetromino* tetromino)
 {
-	switch (tetromino->state)
+	for (int i = 0; i < HEIGHT; ++i)
 	{
-	case first:
-		tetromino->state = fourth;
-	case second:
-		tetromino->state = first;
-	case third:
-		tetromino->state = second;
-	case fourth:
-		tetromino->state = third;
+		for (int j = 0; j < WIDTH; ++j)
+		{
+			for (int n = 0; n < 4; ++n)
+			{
+				if (tetromino->vector2[n].y == i && tetromino->vector2[n].x == j)
+				{
+					if (playField[i + 1][j] == 'X' || playField[i + 1][j] == '=')
+					{
+						lockToPlayfied(playField, tetromino);
+						return true;
+					}
+				}
+			}
+		}
 	}
-	handleByType(tetromino);
+	return false;
 }
 
-static inline bool left(Tetromino* tetromino)
+bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[4])
+{
+	bool isCollision = false;
+	for (int i = 0; i < 4; ++i)
+	{
+		if (playField[vec[i].y][vec[i].x] == 'X' || playField[vec[i].y][vec[i].x] == '=' && vec[i].y != 0)
+		{
+			isCollision = true;
+		}
+	}
+
+	return isCollision;
+}
+
+static inline bool left(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	bool isInPlayField = true;
-	isInPlayField = (tetromino->vector2[0].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[1].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[2].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[3].x > 1 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[0].x > 1);
+	isInPlayField = (tetromino->vector2[1].x > 1);
+	isInPlayField = (tetromino->vector2[2].x > 1);
+	isInPlayField = (tetromino->vector2[3].x > 1);
 
 	if (!isInPlayField)
 	{
-		return isInPlayField;
+		return false;
+	}
+
+	Vector2 vec[4] = {
+		tetromino->vector2[0].x - 1, tetromino->vector2[0].y,
+		tetromino->vector2[1].x - 1, tetromino->vector2[1].y,
+		tetromino->vector2[2].x - 1, tetromino->vector2[2].y,
+		tetromino->vector2[3].x - 1, tetromino->vector2[3].y,
+	};
+
+	if (isCollision(playField, vec))
+	{
+		return false;
 	}
 
 	tetromino->vector2[0].x -= 1;
@@ -158,20 +97,32 @@ static inline bool left(Tetromino* tetromino)
 	tetromino->vector2[2].x -= 1;
 	tetromino->vector2[3].x -= 1;
 
-	return isInPlayField;
+	return true;
 }
 
-static inline bool right(Tetromino* tetromino)
+static inline bool right(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	bool isInPlayField = true;
-	isInPlayField = (tetromino->vector2[0].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[1].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[2].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
-	isInPlayField = (tetromino->vector2[3].x < HEIGHT - 2 ? isInPlayField = isInPlayField ? true : false : false);
+	isInPlayField = (tetromino->vector2[0].x < WIDTH - 1);
+	isInPlayField = (tetromino->vector2[1].x < WIDTH - 1);
+	isInPlayField = (tetromino->vector2[2].x < WIDTH - 1);
+	isInPlayField = (tetromino->vector2[3].x < WIDTH - 1);
 
 	if (!isInPlayField)
 	{
-		return isInPlayField;
+		return false;
+	}
+
+	Vector2 vec[4] = {
+		tetromino->vector2[0].x + 1, tetromino->vector2[0].y,
+		tetromino->vector2[1].x + 1, tetromino->vector2[1].y,
+		tetromino->vector2[2].x + 1, tetromino->vector2[2].y,
+		tetromino->vector2[3].x + 1, tetromino->vector2[3].y,
+	};
+
+	if (isCollision(playField, vec))
+	{
+		return false;
 	}
 
 	tetromino->vector2[0].x += 1;
@@ -179,22 +130,30 @@ static inline bool right(Tetromino* tetromino)
 	tetromino->vector2[2].x += 1;
 	tetromino->vector2[3].x += 1;
 
-	return isInPlayField;
+	return true;
 }
 
-bool direction(Tetromino* tetromino, const char c)
+bool direction(const char playField[HEIGHT][WIDTH], const char c, Tetromino* tetromino)
 {
 	bool changeDirection = false;
 	switch (c)
 	{
 	case LEFT_KEY:
-		changeDirection = left(tetromino);
-		break;	
+		changeDirection = left(playField, tetromino);
+		break;
 	case RIGHT_KEY:
-		changeDirection = right(tetromino);
+		changeDirection = right(playField, tetromino);
 		break;
 	}
 	return changeDirection;
+}
+
+void gravity(Tetromino* tetromino)
+{
+	tetromino->vector2[0].y += 1;
+	tetromino->vector2[1].y += 1;
+	tetromino->vector2[2].y += 1;
+	tetromino->vector2[3].y += 1;
 }
 
 bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const char c) 
@@ -203,15 +162,16 @@ bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const cha
 	{
 		return false;
 	}
-	handleByType(tetromino);
-	handleRotationCollision(playField, tetromino);
+	handleByType(playField, tetromino);
 	return true;
 }
 
-void gravity(Tetromino* tetromino)
+Tetromino spawn(const char playField[HEIGHT][WIDTH])
 {
-	tetromino->vector2[0].y += 1; 
-	tetromino->vector2[1].y += 1;
-	tetromino->vector2[2].y += 1;
-	tetromino->vector2[3].y += 1;
+	// Tetromino tetromino = { rand() % 4, first};
+	Tetromino tetromino = { straight, first };
+	tetromino.vector2[1].y = 1;
+	tetromino.vector2[1].x = WIDTH / 2;
+	handleByType(playField, &tetromino);
+	return tetromino;
 }

@@ -24,7 +24,7 @@
     <ClCompile Include="src\Console\Console.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tetromino\Collision.c">
+    <ClCompile Include="src\Tetromino\straight.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

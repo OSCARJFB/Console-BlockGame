@@ -33,23 +33,22 @@ enum State
 };
 
 typedef struct Vector2
-{
-	unsigned int x, y;
+{ 
+  int x, y;
 } Vector2;
 
 typedef struct Tetromino
 {
+	int type, state;
 	Vector2 vector2[4];
-	unsigned int type;
-	unsigned int state;
 } Tetromino;
 
-Tetromino spawn(void);
-void reverseState(Tetromino* tetromino);
-bool direction(Tetromino* tetromino, const char c);
-bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);
+void straightRotation(const char playField[HEIGHT][WIDTH], Tetromino* tetromino);
 void gravity(Tetromino* tetromino);
-bool isBottomCollision(char playField[HEIGHT][WIDTH], Tetromino* tetromino);
-void handleRotationCollision(const char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+bool direction(const char playField[HEIGHT][WIDTH], const char c, Tetromino* tetromino);
+bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);
+bool isBottomCollision(char playField[HEIGHT][WIDTH], const Tetromino* tetromino);
+bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[4]);
+Tetromino spawn(const char playField[HEIGHT][WIDTH]);
 
 #endif

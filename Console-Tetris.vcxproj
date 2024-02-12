@@ -135,9 +135,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Tetromino\Collision.c" />
     <ClCompile Include="src\Console\Console.c" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\Tetromino\straight.c" />
     <ClCompile Include="src\Tetromino\Tetromino.c" />
   </ItemGroup>
   <ItemGroup>

@@ -137,8 +137,9 @@
   <ItemGroup>
     <ClCompile Include="src\Console\Console.c" />
     <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\Tetromino\straight.c" />
-    <ClCompile Include="src\Tetromino\Tetromino.c" />
+    <ClCompile Include="src\Tetromino\Square.c" />
+    <ClCompile Include="src\Tetromino\Straight.c" />
+    <ClCompile Include="src\Tetromino\Handler.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Console\Console.h" />

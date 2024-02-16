@@ -44,6 +44,7 @@ typedef struct Tetromino
 } Tetromino;
 
 void straightRotation(const char playField[HEIGHT][WIDTH], Tetromino* tetromino);
+void squareRotation(Tetromino* tetromino);
 void gravity(Tetromino* tetromino);
 bool direction(const char playField[HEIGHT][WIDTH], const char c, Tetromino* tetromino);
 bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], char c);

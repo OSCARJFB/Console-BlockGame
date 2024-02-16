@@ -8,7 +8,7 @@ static void handleByType(const char playField[HEIGHT][WIDTH], Tetromino* tetromi
 		straightRotation(playField, tetromino);
 		break;
 	case square:
-		// squareRotation(playField, tetromino);
+		squareRotation(tetromino);
 		break;
 	case tshape:
 		// tshapeRotation(playField, tetromino);
@@ -70,10 +70,10 @@ bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[4])
 static inline bool left(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	bool isInPlayField = true;
-	isInPlayField = (tetromino->vector2[0].x > 1);
-	isInPlayField = (tetromino->vector2[1].x > 1);
-	isInPlayField = (tetromino->vector2[2].x > 1);
-	isInPlayField = (tetromino->vector2[3].x > 1);
+	isInPlayField = (tetromino->vector2[0].x > 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[1].x > 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[2].x > 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[3].x > 1) && isInPlayField;
 
 	if (!isInPlayField)
 	{
@@ -103,10 +103,10 @@ static inline bool left(const char playField[HEIGHT][WIDTH], Tetromino* tetromin
 static inline bool right(const char playField[HEIGHT][WIDTH], Tetromino* tetromino)
 {
 	bool isInPlayField = true;
-	isInPlayField = (tetromino->vector2[0].x < WIDTH - 1);
-	isInPlayField = (tetromino->vector2[1].x < WIDTH - 1);
-	isInPlayField = (tetromino->vector2[2].x < WIDTH - 1);
-	isInPlayField = (tetromino->vector2[3].x < WIDTH - 1);
+	isInPlayField = (tetromino->vector2[0].x < WIDTH - 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[1].x < WIDTH - 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[2].x < WIDTH - 1) && isInPlayField;
+	isInPlayField = (tetromino->vector2[3].x < WIDTH - 1) && isInPlayField;
 
 	if (!isInPlayField)
 	{
@@ -168,10 +168,22 @@ bool rotate(Tetromino* tetromino, const char playField[HEIGHT][WIDTH], const cha
 
 Tetromino spawn(const char playField[HEIGHT][WIDTH])
 {
-	// Tetromino tetromino = { rand() % 4, first};
-	Tetromino tetromino = { straight, first };
-	tetromino.vector2[1].y = 1;
-	tetromino.vector2[1].x = WIDTH / 2;
+	//Tetromino tetromino = { rand() % 4, first}; // Spawn all
+	Tetromino tetromino = { rand() % 2, first};
+	//Tetromino tetromino = { straight, first }; // spawn only 1 type
+	
+	switch (tetromino.type)
+	{
+	case straight:
+		tetromino.vector2[1].y = 1;
+		tetromino.vector2[1].x = WIDTH / 2;
+		break;
+	case square:
+		tetromino.vector2[0].y = 1;
+		tetromino.vector2[0].x = WIDTH / 2;
+		break;
+	}
+
 	handleByType(playField, &tetromino);
 	return tetromino;
 }

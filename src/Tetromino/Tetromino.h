@@ -11,7 +11,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "Properties.h"
-#include "../Keys.h"
 
 #ifndef HEIGHT
 #define HEIGHT 20
@@ -20,6 +19,10 @@
 #ifndef WIDTH
 #define WIDTH 20
 #endif
+
+#define SPACE_KEY ' '
+#define LEFT_KEY 'a'
+#define RIGHT_KEY 'd'
 
 class Tetromino : public Properties
 {

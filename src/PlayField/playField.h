@@ -1,5 +1,3 @@
-#pragma once
-
 /*
 		Writen by: Oscar Bergström
 		https://github.com/OSCARJFB
@@ -7,6 +5,8 @@
 		MIT License
 		Copyright (c) 2024 Oscar Bergström
 */
+
+#pragma once
 
 #include <iostream>
 #include "../Console/Console.h"
@@ -22,3 +22,4 @@
 
 void initPlayField(char playField[HEIGHT][WIDTH]);
 void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino& tetromino, const Console& console);
+void scoreCheck(char playField[HEIGHT][WIDTH]);

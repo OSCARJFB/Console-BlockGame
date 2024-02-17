@@ -112,6 +112,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -126,6 +128,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Console\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayField\playField.cpp" />
@@ -143,8 +148,8 @@
     <ClCompile Include="src\Tetromino\Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\Console\Console.h" />
-    <ClInclude Include="src\Keys.h" />
     <ClInclude Include="src\PlayField\playField.h" />
     <ClInclude Include="src\Tetromino\Properties.h" />
     <ClInclude Include="src\Tetromino\Tetromino.h" />

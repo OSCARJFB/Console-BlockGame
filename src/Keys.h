@@ -1,8 +1,5 @@
-#ifndef KEYS_H
-#define KEYS_H
+#pragma once
 
 #define SPACE_KEY ' '
 #define LEFT_KEY 'a'
 #define RIGHT_KEY 'd'
-
-#endif 

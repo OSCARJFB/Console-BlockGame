@@ -135,15 +135,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Console\Console.c" />
-    <ClCompile Include="src\main.c" />
-    <ClCompile Include="src\Tetromino\Square.c" />
-    <ClCompile Include="src\Tetromino\Straight.c" />
-    <ClCompile Include="src\Tetromino\Handler.c" />
+    <ClCompile Include="src\Console\Console.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PlayField\playField.cpp" />
+    <ClCompile Include="src\Tetromino\Square.cpp" />
+    <ClCompile Include="src\Tetromino\Straight.cpp" />
+    <ClCompile Include="src\Tetromino\Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Console\Console.h" />
     <ClInclude Include="src\Keys.h" />
+    <ClInclude Include="src\PlayField\playField.h" />
+    <ClInclude Include="src\Tetromino\Properties.h" />
     <ClInclude Include="src\Tetromino\Tetromino.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

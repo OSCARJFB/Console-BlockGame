@@ -6,7 +6,7 @@
 		Copyright (c) 2024 Oscar Bergström
 */
 
-#include "playField.h"
+#include "gameField.h"
 #include "../Console/Console.h"
 
 void initPlayField(char playField[HEIGHT][WIDTH])
@@ -29,7 +29,7 @@ void initPlayField(char playField[HEIGHT][WIDTH])
 	}
 }
 
-void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino& tetromino, const Console& console)
+void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
 {
 	int curVec = 0;
 	console.clearScreen();
@@ -37,7 +37,7 @@ void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino& tetrom
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (tetromino.m_vector2[curVec].y == i && tetromino.m_vector2[curVec].x == j)
+			if (Block.m_vector2[curVec].y == i && Block.m_vector2[curVec].x == j)
 			{
 				std::printf("%c", 'T');
 				++curVec;
@@ -49,20 +49,27 @@ void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino& tetrom
 	}
 }
 
-static void updatePlayFieldOnScore(char playField[HEIGHT][WIDTH], int row)
+static void deleteLine(char playField[HEIGHT][WIDTH], int row)
 {
 	for (int i = 1; i < WIDTH - 1; ++i)
 	{
-		playField[row][i] = ' ';
+		playField[row][i] = '.';
 	}
+}
 
-	for (int i = 1; i < HEIGHT - 1; ++i)
+static void pullToButtom(char playField[HEIGHT][WIDTH], int row)
+{
+	for (int i = row + 1; i > 1; --i)
 	{
 		for (int j = 1; j < WIDTH - 1; ++j)
 		{
-			if (i != HEIGHT - 1 && playField[i][j] == 'X')
+			if (playField[i][j] == 'X' && 
+				playField[i + 1][j] != 'X' && 
+				playField[i - 1][j] != 'X' && 
+				playField[i][j + 1] != 'X' &&
+				playField[i][j - 1] != 'X')
 			{
-				playField[i][j] = ' ';
+				playField[i][j] = '.';
 				playField[i + 1][j] = 'X';
 			}
 		}
@@ -75,9 +82,10 @@ void scoreCheck(char playField[HEIGHT][WIDTH])
 	{
 		for (int j = 1; j < WIDTH - 1 && playField[i][j] == 'X'; ++j)
 		{
- 			if (j == WIDTH - 1)
+ 			if (j == WIDTH - 2)
 			{
-				updatePlayFieldOnScore(playField, i);
+				deleteLine(playField, i);
+				pullToButtom(playField, i);
 			}
 		}
 	}

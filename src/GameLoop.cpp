@@ -38,21 +38,21 @@ void run()
 	initPlayField(playField);
 
 	Console console = Console();
-	Tetromino tetromino = Tetromino(playField);
+	Block block = Block(playField);
 
 	while ((c = console.kbhit()) != EOF)
 	{
-		scoreCheck(playField);
-		if (!tetromino.rotate(tetromino, playField, c) && !tetromino.direction(playField, c, tetromino))
+		if (!block.rotate(block, playField, c) && !block.direction(playField, c, block))
 		{
 			TICK_FRAME(framelock())
-				tetromino.gravity(tetromino);
+				block.gravity(block);
 		}
 
-		if (tetromino.isBottomCollision(playField, tetromino))
+		if (block.isBottomCollision(playField, block))
 		{
-			tetromino.spawn(playField);
+			block.spawn(playField);
 		}
-		printPlayField(playField, tetromino, console);
+		printPlayField(playField, block, console);
+		scoreCheck(playField);
 	}
 }

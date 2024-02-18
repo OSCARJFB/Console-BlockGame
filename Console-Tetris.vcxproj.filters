@@ -18,19 +18,19 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tetromino\Handler.cpp">
+    <ClCompile Include="src\Block\Handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Console\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tetromino\Straight.cpp">
+    <ClCompile Include="src\Block\Straight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tetromino\Square.cpp">
+    <ClCompile Include="src\Block\Square.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayField\playField.cpp">
+    <ClCompile Include="src\gameField\gameField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLoop.cpp">
@@ -38,16 +38,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Tetromino\Tetromino.h">
+    <ClInclude Include="src\Block\Block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Console\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\PlayField\playField.h">
+    <ClInclude Include="src\gameField\gameField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tetromino\Properties.h">
+    <ClInclude Include="src\Block\Properties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLoop.h">

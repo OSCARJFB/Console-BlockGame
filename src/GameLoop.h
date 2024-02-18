@@ -1,18 +1,19 @@
+/*
+		Writen by: Oscar Bergström
+		https://github.com/OSCARJFB
+
+		MIT License
+		Copyright (c) 2024 Oscar Bergström
+*/
+
 #pragma once
 
 #include <cstdio>
 #include <ctime>
 #include "Console/Console.h"
-#include "Tetromino/Tetromino.h"
-#include "PlayField/playField.h"
-
-#ifndef HEIGHT
-#define HEIGHT 20
-#endif
-
-#ifndef WIDTH
-#define WIDTH 20
-#endif
+#include "Block/Block.h"
+#include "gameField/gameFieldSize.h"
+#include "gameField/gameField.h"
 
 #define TICK_FRAME(x)      \
 if(!x)                     \

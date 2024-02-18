@@ -8,16 +8,13 @@
 
 #pragma once
 
-class Properties
+class BlockProperties
 {
 public:
 	enum Type
 	{
-		straight,
-		square,
-		tshape,
-		lshape,
-		skew
+		straightBlock,
+		squareBlock,
 	};
 
 	enum State

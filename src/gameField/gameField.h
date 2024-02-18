@@ -9,17 +9,10 @@
 #pragma once
 
 #include <iostream>
+#include "gameFieldSize.h"
 #include "../Console/Console.h"
-#include "../Tetromino/Tetromino.h"
-
-#ifndef HEIGHT
-#define HEIGHT 20
-#endif
-
-#ifndef WIDTH
-#define WIDTH 20
-#endif
+#include "../Block/Block.h"
 
 void initPlayField(char playField[HEIGHT][WIDTH]);
-void printPlayField(const char playField[HEIGHT][WIDTH], const Tetromino& tetromino, const Console& console);
+void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
 void scoreCheck(char playField[HEIGHT][WIDTH]);

@@ -22,8 +22,9 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{63228a06-5a69-4ab0-a075-4f59a8ebeb93}</ProjectGuid>
-    <RootNamespace>ConsoleTetris</RootNamespace>
+    <RootNamespace>ConsoleBlockGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Console-BlockGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -142,17 +143,18 @@
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Console\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\PlayField\playField.cpp" />
-    <ClCompile Include="src\Tetromino\Square.cpp" />
-    <ClCompile Include="src\Tetromino\Straight.cpp" />
-    <ClCompile Include="src\Tetromino\Handler.cpp" />
+    <ClCompile Include="src\gameField\gameField.cpp" />
+    <ClCompile Include="src\Block\SquareBlock.cpp" />
+    <ClCompile Include="src\Block\StraightBlock.cpp" />
+    <ClCompile Include="src\Block\Handler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\Console\Console.h" />
-    <ClInclude Include="src\PlayField\playField.h" />
-    <ClInclude Include="src\Tetromino\Properties.h" />
-    <ClInclude Include="src\Tetromino\Tetromino.h" />
+    <ClInclude Include="src\gameField\gameField.h" />
+    <ClInclude Include="src\Block\BlockProperties.h" />
+    <ClInclude Include="src\Block\Block.h" />
+    <ClInclude Include="src\gameField\gameFieldSize.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

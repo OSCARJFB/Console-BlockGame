@@ -24,8 +24,8 @@ void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
 	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = 'X';
 	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = 'X';
 	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = 'X';
-	playField[Block.m_vector2[4].y][Block.m_vector2[2].x] = 'X';
-	playField[Block.m_vector2[5].y][Block.m_vector2[3].x] = 'X';
+	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = 'X';
+	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = 'X';
 }
 
 bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
@@ -34,7 +34,7 @@ bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			for (int n = 0; n < 4; ++n)
+			for (int n = 0; n < 6; ++n)
 			{
 				if (Block.m_vector2[n].y == i && Block.m_vector2[n].x == j)
 				{

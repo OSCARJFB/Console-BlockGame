@@ -8,6 +8,7 @@
 
 #pragma once
 
+#include "BlockProperties.h"
 #include "Block.h"
 #include "../gameField/gameField.h"
 

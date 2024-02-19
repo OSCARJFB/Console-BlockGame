@@ -37,19 +37,16 @@ inline void BlockTypeOne::setBlock(Block& block, const Vector2 vec[6])
 	block.m_vector2[5] = vec[5];
 }
 
-
-//	[]	  []
-//  [][][][]
 void BlockTypeOne::firstState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{block.m_vector2[0].x, block.m_vector2[0].y},
-		{block.m_vector2[1].x, block.m_vector2[1].y = y + 1},
+		{block.m_vector2[1].x = x, block.m_vector2[1].y = y + 1},
 		{block.m_vector2[2].x = x + 1, block.m_vector2[2].y = y + 1},
 		{block.m_vector2[3].x = x + 2, block.m_vector2[3].y = y + 1},
 		{block.m_vector2[4].x = x + 3, block.m_vector2[4].y = y + 1},
-		{block.m_vector2[5].x = x + 3, block.m_vector2[5].y},
+		{block.m_vector2[5].x = x + 3, block.m_vector2[5].y = y},
 	};
 
 	if (block.isCollision(playField, vec))
@@ -61,19 +58,15 @@ void BlockTypeOne::firstState(const char playField[HEIGHT][WIDTH], Block& block)
 	block.m_state = State::second;
 }
 
-//	[][]
-//  []
-//  []
-//	[][]
 void BlockTypeOne::secondState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{block.m_vector2[0].x, block.m_vector2[0].y},
-		{block.m_vector2[1].x = x + 1, block.m_vector2[1].y},
-		{block.m_vector2[2].x, block.m_vector2[2].y = y + 1},
-		{block.m_vector2[3].x, block.m_vector2[3].y = y + 2},
-		{block.m_vector2[4].x, block.m_vector2[4].y = y + 3},
+		{block.m_vector2[1].x = x + 1, block.m_vector2[1].y = y},
+		{block.m_vector2[2].x = x, block.m_vector2[2].y = y + 1},
+		{block.m_vector2[3].x = x, block.m_vector2[3].y = y + 2},
+		{block.m_vector2[4].x = x, block.m_vector2[4].y = y + 3},
 		{block.m_vector2[5].x = x + 1, block.m_vector2[5].y = y + 3},
 	};
 
@@ -83,20 +76,18 @@ void BlockTypeOne::secondState(const char playField[HEIGHT][WIDTH], Block& block
 	}
 
 	setBlock(block, vec);
-	block.m_state = State::second;
+	block.m_state = State::third;
 }
 
-//	[][][][]
-//  []    []
 void BlockTypeOne::thirdState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{block.m_vector2[0].x, block.m_vector2[0].y},
-		{block.m_vector2[1].x, block.m_vector2[1].y = y + 1},
+		{block.m_vector2[1].x = x, block.m_vector2[1].y = y + 1},
 		{block.m_vector2[2].x = x + 1, block.m_vector2[2].y = y + 1},
-		{block.m_vector2[3].x = x + 2, block.m_vector2[3].y},
-		{block.m_vector2[4].x = x + 3, block.m_vector2[4].y},
+		{block.m_vector2[3].x = x + 2, block.m_vector2[3].y = y},
+		{block.m_vector2[4].x = x + 3, block.m_vector2[4].y = y},
 		{block.m_vector2[5].x = x + 3, block.m_vector2[5].y = y + 1},
 	};
 
@@ -106,23 +97,19 @@ void BlockTypeOne::thirdState(const char playField[HEIGHT][WIDTH], Block& block)
 	}
 
 	setBlock(block, vec);
-	block.m_state = State::second;
+	block.m_state = State::fourth;
 }
 
-//	[][]
-//    []
-//	  []
-//  [][]
 void BlockTypeOne::fourthState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{block.m_vector2[0].x, block.m_vector2[0].y},
-		{block.m_vector2[1].x = x + 1, block.m_vector2[1].y},
+		{block.m_vector2[1].x = x + 1, block.m_vector2[1].y = y},
 		{block.m_vector2[2].x = x + 1, block.m_vector2[2].y = y + 1},
 		{block.m_vector2[3].x = x + 1, block.m_vector2[3].y = y + 2},
 		{block.m_vector2[4].x = x + 1, block.m_vector2[4].y = y + 3},
-		{block.m_vector2[5].x, block.m_vector2[5].y = y + 3},
+		{block.m_vector2[5].x = x, block.m_vector2[5].y = y + 3},
 	};
 
 	if (block.isCollision(playField, vec))
@@ -131,5 +118,5 @@ void BlockTypeOne::fourthState(const char playField[HEIGHT][WIDTH], Block& block
 	}
 
 	setBlock(block, vec);
-	block.m_state = State::second;
+	block.m_state = State::first;
 }

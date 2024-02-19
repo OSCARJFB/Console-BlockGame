@@ -9,4 +9,4 @@
 #pragma once
 
 #define HEIGHT 26
-#define WIDTH 36
+#define WIDTH 26

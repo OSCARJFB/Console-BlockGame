@@ -8,6 +8,9 @@
 
 #pragma once
 
+class Block;
+class BlockTypeOne;
+
 class BlockProperties
 {
 public:

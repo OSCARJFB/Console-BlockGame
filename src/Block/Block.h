@@ -10,8 +10,9 @@
 
 #include <cstdlib>
 #include <ctime>
-#include "../gameField/gameFieldSize.h"
 #include "BlockProperties.h"
+#include "BlockTypeOne.h"
+#include "../gameField/gameFieldSize.h"
 
 #define SPACE_KEY ' '
 #define LEFT_KEY 'a'
@@ -32,10 +33,10 @@
 //	  [][][][]
 //			[]
 
-
 class Block : public BlockProperties
 {
 public:
+	Block() = default;
 	Block(const char playField[HEIGHT][WIDTH])
 	{
 		spawn(playField);

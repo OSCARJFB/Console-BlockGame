@@ -39,7 +39,7 @@ void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, con
 		{
 			if (Block.m_vector2[curVec].y == i && Block.m_vector2[curVec].x == j)
 			{
-				std::printf("%c", 'T');
+				std::printf("%c", BLOCK);
 				++curVec;
 				continue;
 			}

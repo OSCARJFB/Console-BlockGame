@@ -13,6 +13,8 @@
 #include "../Console/Console.h"
 #include "../Block/Block.h"
 
+#define BLOCK 'B'
+
 void initPlayField(char playField[HEIGHT][WIDTH]);
 void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
 void scoreCheck(char playField[HEIGHT][WIDTH]);

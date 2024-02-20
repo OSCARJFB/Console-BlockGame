@@ -29,24 +29,31 @@ void initPlayField(char playField[HEIGHT][WIDTH])
 	}
 }
 
-void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
+void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
 {
-	int curVec = 0;
+	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = BLOCK;
+	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = BLOCK;
+	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = BLOCK;
+	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = BLOCK;
+	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = BLOCK;
+	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = BLOCK;
+
 	console.clearScreen();
 	for (int i = 0; i < HEIGHT; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (Block.m_vector2[curVec].y == i && Block.m_vector2[curVec].x == j)
-			{
-				std::printf("%c", BLOCK);
-				++curVec;
-				continue;
-			}
 			std::printf("%c", playField[i][j]);
 		}
 		std::printf("\n");
 	}
+
+	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = '.';
+	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = '.';
+	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = '.';
+	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = '.';
+	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = '.';
+	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = '.';
 }
 
 static void deleteLine(char playField[HEIGHT][WIDTH], int row)

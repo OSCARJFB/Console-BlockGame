@@ -55,12 +55,12 @@ bool Block::isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[6
 	bool isCollision = false;
 	for (int i = 0; i < 6; ++i)
 	{
-		if (playField[vec[i].y][vec[i].x] == 'X' || playField[vec[i].y][vec[i].x] == '=' && vec[i].y != 0)
+		if (vec[i].x >= WIDTH || playField[vec[i].y][vec[i].x] == '=' || playField[vec[i].y][vec[i].x] == 'X')
 		{
 			isCollision = true;
+			break;
 		}
 	}
-
 	return isCollision;
 }
 

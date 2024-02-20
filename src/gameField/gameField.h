@@ -16,5 +16,5 @@
 #define BLOCK '#'
 
 void initPlayField(char playField[HEIGHT][WIDTH]);
-void printPlayField(const char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
+void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
 void scoreCheck(char playField[HEIGHT][WIDTH]);

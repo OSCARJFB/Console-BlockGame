@@ -105,24 +105,3 @@ void Console::clearScreen()
 }
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

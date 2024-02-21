@@ -33,6 +33,9 @@
     <ClCompile Include="src\Block\BlockTypeOne.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Block\BlockTypeTwo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Block\Block.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Block\BlockTypeOne.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block\BlockTypeTwo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

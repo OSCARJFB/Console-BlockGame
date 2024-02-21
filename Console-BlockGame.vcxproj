@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Block\BlockTypeTwo.cpp" />
     <ClCompile Include="src\Block\BlockTypeOne.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Console\Console.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="src\Block\Block.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Block\BlockTypeTwo.h" />
     <ClInclude Include="src\Block\BlockTypeOne.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\Console\Console.h" />

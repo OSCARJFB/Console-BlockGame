@@ -10,6 +10,7 @@
 
 class Block;
 class BlockTypeOne;
+class BlockTypeTwo;
 
 class BlockProperties
 {

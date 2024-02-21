@@ -8,12 +8,36 @@
 
 #include "Block.h"
 
+Block::Block(const char playField[HEIGHT][WIDTH])
+{
+	spawn(playField);
+	m_blockTypeOne = new BlockTypeOne;
+	m_blockTypeTwo = new BlockTypeTwo;
+	m_blockTypeThree = new BlockTypeTwo;
+};
+
+Block::~Block()
+{
+	delete m_blockTypeOne;
+	m_blockTypeOne = nullptr;
+	
+	delete m_blockTypeTwo;
+	m_blockTypeTwo = nullptr;
+
+	delete m_blockTypeThree;
+	m_blockTypeThree = nullptr;
+}
+
 void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
 {
+
 	switch (block.m_type)
 	{
-	case BlockOne:
-		BlockTypeOne blockTypeOne(playField, block);
+	case Type::BlockOne:
+		m_blockTypeOne->rotate(playField, block);
+		break;
+	case Type::BlockTwo:
+		m_blockTypeTwo->rotate(playField, block);
 		break;
 	}
 }
@@ -179,8 +203,7 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 
 void Block::spawn(const char playField[HEIGHT][WIDTH])
 {
-	// this->m_type = static_cast<Type>(rand() % 2);
-	this->m_type = Type::BlockOne;
+ 	this->m_type = static_cast<Type>(rand() % 3);
 	this->m_state = first;
 	this->m_vector2[0].y = 1;
 	this->m_vector2[0].x = WIDTH / 2;

@@ -12,10 +12,10 @@
 #include "Block.h"
 #include "../gameField/gameField.h"
 
-class BlockTypeOne : public BlockProperties
+class BlockTypeThree : public BlockProperties
 {
 public:
-	BlockTypeOne() = default;
+	BlockTypeThree() = default;
 	void rotate(const char playField[HEIGHT][WIDTH], Block& block);
 
 private:
@@ -25,3 +25,4 @@ private:
 	void thirdState(const char playField[HEIGHT][WIDTH], Block& block);
 	void fourthState(const char playField[HEIGHT][WIDTH], Block& block);
 };
+

@@ -140,15 +140,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Block\BlockTypeTwo.cpp" />
+    <ClCompile Include="src\Block\BlockTypeOne.cpp" />
+    <ClCompile Include="src\Block\BlockTypeThree.cpp" />
+    <ClCompile Include="src\Block\BlockTypeFour.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Console\Console.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\gameField\gameField.cpp" />
-    <ClCompile Include="src\Block\SquareBlock.cpp" />
-    <ClCompile Include="src\Block\StraightBlock.cpp" />
-    <ClCompile Include="src\Block\Handler.cpp" />
+    <ClCompile Include="src\Block\Block.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Block\BlockTypeTwo.h" />
+    <ClInclude Include="src\Block\BlockTypeOne.h" />
+    <ClInclude Include="src\Block\BlockTypeThree.h" />
+    <ClInclude Include="src\Block\BlockTypeFour.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\Console\Console.h" />
     <ClInclude Include="src\gameField\gameField.h" />

@@ -8,13 +8,21 @@
 
 #pragma once
 
+class Block;
+class BlockTypeOne;
+class BlockTypeTwo;
+class BlockTypeThree;
+class BlockTypeFour;
+
 class BlockProperties
 {
 public:
 	enum Type
 	{
-		straightBlock,
-		squareBlock,
+		BlockOne,
+		BlockTwo,
+		BlockThree,
+		BlockFour,
 	};
 
 	enum State
@@ -34,5 +42,5 @@ public:
 public:
 	Type m_type;
 	State m_state;
-	Vector2 m_vector2[4];
+	Vector2 m_vector2[6];
 };

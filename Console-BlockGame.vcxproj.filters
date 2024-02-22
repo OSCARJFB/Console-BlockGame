@@ -18,22 +18,28 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Block\Handler.cpp">
+    <ClCompile Include="src\Block\Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Console\Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\Straight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\Square.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\gameField\gameField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Block\BlockTypeOne.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Block\BlockTypeTwo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Block\BlockTypeThree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Block\BlockTypeFour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,10 +53,25 @@
     <ClInclude Include="src\gameField\gameField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Block\Properties.h">
+    <ClInclude Include="src\GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\GameLoop.h">
+    <ClInclude Include="src\Block\BlockProperties.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gameField\gameFieldSize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block\BlockTypeOne.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block\BlockTypeTwo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block\BlockTypeThree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Block\BlockTypeFour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

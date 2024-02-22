@@ -8,5 +8,5 @@
 
 #pragma once
 
-#define HEIGHT 20
-#define WIDTH 25
+#define HEIGHT 26
+#define WIDTH 26

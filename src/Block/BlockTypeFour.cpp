@@ -6,9 +6,9 @@
 		Copyright (c) 2024 Oscar Bergström
 */
 
-#include "BlockTypeThree.h"
+#include "BlockTypeFour.h"
 
-void BlockTypeThree::rotate(const char playField[HEIGHT][WIDTH], Block& block)
+void BlockTypeFour::rotate(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	switch (block.m_state)
 	{
@@ -27,7 +27,7 @@ void BlockTypeThree::rotate(const char playField[HEIGHT][WIDTH], Block& block)
 	}
 }
 
-inline void BlockTypeThree::setBlock(Block& block, const Vector2 vec[6])
+inline void BlockTypeFour::setBlock(Block& block, const Vector2 vec[6])
 {
 	block.m_vector2[0] = vec[0];
 	block.m_vector2[1] = vec[1];
@@ -37,10 +37,7 @@ inline void BlockTypeThree::setBlock(Block& block, const Vector2 vec[6])
 	block.m_vector2[5] = vec[5];
 }
 
-
-//  [][][][][]
-//    []
-void BlockTypeThree::firstState(const char playField[HEIGHT][WIDTH], Block& block)
+void BlockTypeFour::firstState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
@@ -61,13 +58,7 @@ void BlockTypeThree::firstState(const char playField[HEIGHT][WIDTH], Block& bloc
 	block.m_state = State::second;
 }
 
-//    []
-//  [][]
-//	  []
-//	  []
-//	  []
-
-void BlockTypeThree::secondState(const char playField[HEIGHT][WIDTH], Block& block)
+void BlockTypeFour::secondState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
@@ -88,9 +79,7 @@ void BlockTypeThree::secondState(const char playField[HEIGHT][WIDTH], Block& blo
 	block.m_state = State::third;
 }
 
-//       []
-// [][][][][]
-void BlockTypeThree::thirdState(const char playField[HEIGHT][WIDTH], Block& block)
+void BlockTypeFour::thirdState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
@@ -110,12 +99,8 @@ void BlockTypeThree::thirdState(const char playField[HEIGHT][WIDTH], Block& bloc
 	setBlock(block, vec);
 	block.m_state = State::fourth;
 }
-//		 []
-//       []
-//       []
-//       [][]
-//       []
-void BlockTypeThree::fourthState(const char playField[HEIGHT][WIDTH], Block& block)
+
+void BlockTypeFour::fourthState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {

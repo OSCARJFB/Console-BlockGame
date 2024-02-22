@@ -15,7 +15,7 @@ void initPlayField(char playField[HEIGHT][WIDTH])
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			if (j == 0 || j == WIDTH - 1 || i == 0 || i == HEIGHT - 1)
+			if (j == 0 || j == WIDTH - 1 || i == HEIGHT - 1)
 			{
 				playField[i][j] = '=';
 				continue;
@@ -70,15 +70,20 @@ static void pullToButtom(char playField[HEIGHT][WIDTH], int row)
 	{
 		for (int j = 1; j < WIDTH - 1; ++j)
 		{
-			if (playField[i][j] == 'X' && 
-				playField[i + 1][j] != 'X' && 
-				playField[i - 1][j] != 'X' && 
-				playField[i][j + 1] != 'X' &&
-				playField[i][j - 1] != 'X')
+			if (playField[i][j] != 'X')
 			{
-				playField[i][j] = '.';
-				playField[i + 1][j] = 'X';
+				continue;
 			}
+
+			playField[i][j] = '.';
+
+			int y = j;
+			for (; y < HEIGHT - 2 && playField[y + 1][j] != 'X'; ++y)
+			{
+				
+			}
+
+			playField[y][j] = 'X';
 		}
 	}
 }

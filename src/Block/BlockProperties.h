@@ -11,6 +11,8 @@
 class Block;
 class BlockTypeOne;
 class BlockTypeTwo;
+class BlockTypeThree;
+class BlockTypeFour;
 
 class BlockProperties
 {
@@ -20,6 +22,7 @@ public:
 		BlockOne,
 		BlockTwo,
 		BlockThree,
+		BlockFour,
 	};
 
 	enum State

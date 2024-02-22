@@ -13,7 +13,8 @@ Block::Block(const char playField[HEIGHT][WIDTH])
 	spawn(playField);
 	m_blockTypeOne = new BlockTypeOne;
 	m_blockTypeTwo = new BlockTypeTwo;
-	m_blockTypeThree = new BlockTypeTwo;
+	m_blockTypeThree = new BlockTypeThree;
+	m_blockTypeFour = new BlockTypeFour;
 };
 
 Block::~Block()
@@ -26,6 +27,9 @@ Block::~Block()
 
 	delete m_blockTypeThree;
 	m_blockTypeThree = nullptr;
+
+	delete m_blockTypeFour;
+	m_blockTypeFour = nullptr;
 }
 
 void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
@@ -39,17 +43,20 @@ void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
 	case Type::BlockTwo:
 		m_blockTypeTwo->rotate(playField, block);
 		break;
+	case Type::BlockThree:
+		m_blockTypeThree->rotate(playField, block);
+		break;
 	}
 }
 
 void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
 {
-	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = 'X';
-	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = 'X';
-	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = 'X';
-	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = 'X';
-	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = 'X';
-	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = 'X';
+	playField[Block.m_vector2[0].y - 1][Block.m_vector2[0].x] = 'X';
+	playField[Block.m_vector2[1].y - 1][Block.m_vector2[1].x] = 'X';
+	playField[Block.m_vector2[2].y - 1][Block.m_vector2[2].x] = 'X';
+	playField[Block.m_vector2[3].y - 1][Block.m_vector2[3].x] = 'X';
+	playField[Block.m_vector2[4].y - 1][Block.m_vector2[4].x] = 'X';
+	playField[Block.m_vector2[5].y - 1][Block.m_vector2[5].x] = 'X';
 }
 
 bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
@@ -62,7 +69,7 @@ bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
 			{
 				if (Block.m_vector2[n].y == i && Block.m_vector2[n].x == j)
 				{
-					if (playField[i + 1][j] == 'X' || playField[i + 1][j] == '=')
+					if (playField[i][j] == 'X' || playField[i][j] == '=')
 					{
 						lockToPlayfied(playField, Block);
 						return true;
@@ -206,6 +213,6 @@ void Block::spawn(const char playField[HEIGHT][WIDTH])
  	this->m_type = static_cast<Type>(rand() % 3);
 	this->m_state = first;
 	this->m_vector2[0].y = 1;
-	this->m_vector2[0].x = WIDTH / 2;
+	this->m_vector2[0].x = (WIDTH - 1) / 2;
 	handleByType(playField, *this);
 }

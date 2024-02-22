@@ -13,17 +13,13 @@
 #include "BlockProperties.h"
 #include "BlockTypeOne.h"
 #include "BlockTypeTwo.h"
+#include "BlockTypeThree.h"
+#include "BlockTypeFour.h"
 #include "../gameField/gameFieldSize.h"
 
 #define SPACE_KEY ' '
 #define LEFT_KEY 'a'
 #define RIGHT_KEY 'd'
-
-
-//    []
-//	  []
-//    [][]
-//    []
 
 //    []
 //	  [][][][]
@@ -53,5 +49,6 @@ private:
 private: 
 	BlockTypeOne* m_blockTypeOne;
 	BlockTypeTwo* m_blockTypeTwo;
-	BlockTypeTwo* m_blockTypeThree;
+	BlockTypeThree* m_blockTypeThree;
+	BlockTypeFour* m_blockTypeFour;
 };

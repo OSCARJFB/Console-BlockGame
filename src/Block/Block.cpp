@@ -173,6 +173,45 @@ bool Block::right(const char playField[HEIGHT][WIDTH], Block& Block)
 	return true;
 }
 
+bool Block::down(const char playField[HEIGHT][WIDTH], Block& Block)
+{
+	bool isInPlayField = true;
+	isInPlayField = (Block.m_vector2[0].y < HEIGHT - 1) && isInPlayField;
+	isInPlayField = (Block.m_vector2[1].y < HEIGHT - 1) && isInPlayField;
+	isInPlayField = (Block.m_vector2[2].y < HEIGHT - 1) && isInPlayField;
+	isInPlayField = (Block.m_vector2[3].y < HEIGHT - 1) && isInPlayField;
+	isInPlayField = (Block.m_vector2[4].y < HEIGHT - 1) && isInPlayField;
+	isInPlayField = (Block.m_vector2[5].y < HEIGHT - 1) && isInPlayField;
+
+	if (!isInPlayField)
+	{
+		return false;
+	}
+
+	Vector2 vec[6] = {
+		Block.m_vector2[0].y + 1, Block.m_vector2[0].y,
+		Block.m_vector2[1].y + 1, Block.m_vector2[1].y,
+		Block.m_vector2[2].y + 1, Block.m_vector2[2].y,
+		Block.m_vector2[3].y + 1, Block.m_vector2[3].y,
+		Block.m_vector2[4].y + 1, Block.m_vector2[4].y,
+		Block.m_vector2[5].y + 1, Block.m_vector2[5].y,
+	};
+
+	if (isCollision(playField, vec))
+	{
+		return false;
+	}
+
+	Block.m_vector2[0].y += 1;
+	Block.m_vector2[1].y += 1;
+	Block.m_vector2[2].y += 1;
+	Block.m_vector2[3].y += 1;
+	Block.m_vector2[4].y += 1;
+	Block.m_vector2[5].y += 1;
+
+	return true;
+}
+
 bool Block::direction(const char playField[HEIGHT][WIDTH], const char c, Block& Block)
 {
 	bool changeDirection = false;
@@ -183,6 +222,9 @@ bool Block::direction(const char playField[HEIGHT][WIDTH], const char c, Block& 
 		break;
 	case RIGHT_KEY:
 		changeDirection = right(playField, Block);
+		break;
+	case DOWN_KEY:
+		changeDirection = down(playField, Block);
 		break;
 	}
 	return changeDirection;

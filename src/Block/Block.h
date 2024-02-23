@@ -20,6 +20,7 @@
 #define SPACE_KEY ' '
 #define LEFT_KEY 'a'
 #define RIGHT_KEY 'd'
+#define DOWN_KEY 's'
 
 //    []
 //	  [][][][]
@@ -45,6 +46,7 @@ private:
 	void lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& block);
 	bool left(const char playField[HEIGHT][WIDTH], Block& block);
 	bool right(const char playField[HEIGHT][WIDTH], Block& block);
+	bool down(const char playField[HEIGHT][WIDTH], Block& Block);
 
 private: 
 	BlockTypeOne* m_blockTypeOne;

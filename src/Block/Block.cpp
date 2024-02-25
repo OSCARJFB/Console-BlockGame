@@ -21,13 +21,10 @@ Block::~Block()
 {
 	delete m_blockTypeOne;
 	m_blockTypeOne = nullptr;
-	
 	delete m_blockTypeTwo;
 	m_blockTypeTwo = nullptr;
-
 	delete m_blockTypeThree;
 	m_blockTypeThree = nullptr;
-
 	delete m_blockTypeFour;
 	m_blockTypeFour = nullptr;
 }
@@ -99,19 +96,6 @@ bool Block::isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[6
 
 bool Block::left(const char playField[HEIGHT][WIDTH], Block& Block)
 {
-	bool isInPlayField = true;
-	isInPlayField = (Block.m_vector2[0].x > 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[1].x > 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[2].x > 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[3].x > 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[4].x > 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[5].x > 1) && isInPlayField;
-
-	if (!isInPlayField)
-	{
-		return false;
-	}
-
 	Vector2 vec[6] = {
 		Block.m_vector2[0].x - 1, Block.m_vector2[0].y,
 		Block.m_vector2[1].x - 1, Block.m_vector2[1].y,
@@ -138,19 +122,6 @@ bool Block::left(const char playField[HEIGHT][WIDTH], Block& Block)
 
 bool Block::right(const char playField[HEIGHT][WIDTH], Block& Block)
 {
-	bool isInPlayField = true;
-	isInPlayField = (Block.m_vector2[0].x < WIDTH - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[1].x < WIDTH - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[2].x < WIDTH - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[3].x < WIDTH - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[4].x < WIDTH - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[5].x < WIDTH - 1) && isInPlayField;
-
-	if (!isInPlayField)
-	{
-		return false;
-	}
-
 	Vector2 vec[6] = {
 		Block.m_vector2[0].x + 1, Block.m_vector2[0].y, 
 		Block.m_vector2[1].x + 1, Block.m_vector2[1].y,
@@ -171,25 +142,11 @@ bool Block::right(const char playField[HEIGHT][WIDTH], Block& Block)
 	Block.m_vector2[3].x += 1;
 	Block.m_vector2[4].x += 1;
 	Block.m_vector2[5].x += 1;
-
 	return true;
 }
 
 bool Block::down(const char playField[HEIGHT][WIDTH], Block& Block)
 {
-	bool isInPlayField = true;
-	isInPlayField = (Block.m_vector2[0].y < HEIGHT - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[1].y < HEIGHT - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[2].y < HEIGHT - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[3].y < HEIGHT - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[4].y < HEIGHT - 1) && isInPlayField;
-	isInPlayField = (Block.m_vector2[5].y < HEIGHT - 1) && isInPlayField;
-
-	if (!isInPlayField)
-	{
-		return false;
-	}
-
 	Vector2 vec[6] = {
 		Block.m_vector2[0].y + 1, Block.m_vector2[0].y,
 		Block.m_vector2[1].y + 1, Block.m_vector2[1].y,
@@ -210,7 +167,6 @@ bool Block::down(const char playField[HEIGHT][WIDTH], Block& Block)
 	Block.m_vector2[3].y += 1;
 	Block.m_vector2[4].y += 1;
 	Block.m_vector2[5].y += 1;
-
 	return true;
 }
 
@@ -252,12 +208,37 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 	return true;
 }
 
+void Block::reshuffleSpawn()
+{
+	int type = static_cast<int>(m_type);
+	if (type < Type::BlockFour)
+	{
+		++type;
+		m_type = static_cast<Type>(type);
+	}
+	else
+	{
+		m_type = Type::BlockOne;
+	}
+}
+
 void Block::spawn(const char playField[HEIGHT][WIDTH])
 {
- 	this->m_type = static_cast<Type>(rand() % 4);
-	this->m_type = Type::BlockFour;
-	this->m_state = first;
-	this->m_vector2[0].y = 1;
-	this->m_vector2[0].x = (WIDTH - 1) / 2;
+	static Type lastType = Type::None;
+	static int TypeCount = 0;
+ 	m_type = static_cast<Type>(rand() % 4);
+	
+	// Prevent more than 2 continues block of same type to spawn.
+	TypeCount += lastType == m_type ? 1 : 0;
+	if (TypeCount == 2)
+	{
+		reshuffleSpawn();
+		TypeCount = 0;
+	}
+
+	lastType = m_type;
+	m_state = first;
+	m_vector2[0].y = 1;
+	m_vector2[0].x = (WIDTH - 1) / 2;
 	handleByType(playField, *this);
 }

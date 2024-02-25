@@ -23,6 +23,7 @@ public:
 		BlockTwo,
 		BlockThree,
 		BlockFour,
+		None,
 	};
 
 	enum State

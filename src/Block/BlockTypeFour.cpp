@@ -42,10 +42,10 @@ void BlockTypeFour::firstState(const char playField[HEIGHT][WIDTH], Block& block
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{x, y},
-		{x + 1, y + 1},
 		{x + 1, y},
 		{x + 2, y},
 		{x + 3, y},
+		{x + 3, y + 1},
 		{x + 4, y},
 	};
 
@@ -64,9 +64,9 @@ void BlockTypeFour::secondState(const char playField[HEIGHT][WIDTH], Block& bloc
 	Vector2 vec[6] = {
 		{x, y},
 		{x, y + 1},
-		{x - 1, y + 1},
 		{x, y + 2},
 		{x, y + 3},
+		{x - 1, y + 3},
 		{x, y + 4},
 	};
 
@@ -84,11 +84,11 @@ void BlockTypeFour::thirdState(const char playField[HEIGHT][WIDTH], Block& block
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{x, y},
-		{x - 1, y},
-		{x - 1, y - 1},
-		{x - 2, y},
-		{x - 3, y},
-		{x - 4, y},
+		{x + 1, y},
+		{x + 1, y - 1},
+		{x + 2, y},
+		{x + 3, y},
+		{x + 4, y},
 	};
 
 	if (block.isCollision(playField, vec))
@@ -105,11 +105,11 @@ void BlockTypeFour::fourthState(const char playField[HEIGHT][WIDTH], Block& bloc
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
 	Vector2 vec[6] = {
 		{x, y},
-		{x, y - 1},
-		{x + 1, y - 1},
-		{x, y - 2},
-		{x, y - 3},
-		{x, y - 4},
+		{x, y + 1},
+		{x + 1, y + 1},
+		{x, y + 2},
+		{x, y + 3},
+		{x, y + 4},
 	};
 
 	if (block.isCollision(playField, vec))

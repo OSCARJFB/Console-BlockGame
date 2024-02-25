@@ -54,6 +54,8 @@ void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Con
 	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = '.';
 	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = '.';
 	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = '.';
+
+	std::fflush(stdout);
 }
 
 static void deleteLine(char playField[HEIGHT][WIDTH], int row)

@@ -34,7 +34,6 @@ Block::~Block()
 
 void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
 {
-
 	switch (block.m_type)
 	{
 	case Type::BlockOne:
@@ -45,6 +44,9 @@ void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
 		break;
 	case Type::BlockThree:
 		m_blockTypeThree->rotate(playField, block);
+		break;
+	case Type::BlockFour:
+		m_blockTypeFour->rotate(playField, block);
 		break;
 	}
 }
@@ -252,7 +254,8 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 
 void Block::spawn(const char playField[HEIGHT][WIDTH])
 {
- 	this->m_type = static_cast<Type>(rand() % 3);
+ 	this->m_type = static_cast<Type>(rand() % 4);
+	this->m_type = Type::BlockFour;
 	this->m_state = first;
 	this->m_vector2[0].y = 1;
 	this->m_vector2[0].x = (WIDTH - 1) / 2;

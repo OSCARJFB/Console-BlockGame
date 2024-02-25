@@ -42,6 +42,7 @@ public:
 	bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[6]);
 
 private:
+	void reshuffleSpawn();
 	void handleByType(const char playField[HEIGHT][WIDTH], Block& block);
 	void lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& block);
 	bool left(const char playField[HEIGHT][WIDTH], Block& block);

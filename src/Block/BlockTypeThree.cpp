@@ -37,9 +37,6 @@ inline void BlockTypeThree::setBlock(Block& block, const Vector2 vec[6])
 	block.m_vector2[5] = vec[5];
 }
 
-
-//  [][][][][]
-//    []
 void BlockTypeThree::firstState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
@@ -60,12 +57,6 @@ void BlockTypeThree::firstState(const char playField[HEIGHT][WIDTH], Block& bloc
 	setBlock(block, vec);
 	block.m_state = State::second;
 }
-
-//    []
-//  [][]
-//	  []
-//	  []
-//	  []
 
 void BlockTypeThree::secondState(const char playField[HEIGHT][WIDTH], Block& block)
 {
@@ -88,8 +79,6 @@ void BlockTypeThree::secondState(const char playField[HEIGHT][WIDTH], Block& blo
 	block.m_state = State::third;
 }
 
-//       []
-// [][][][][]
 void BlockTypeThree::thirdState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
@@ -110,11 +99,7 @@ void BlockTypeThree::thirdState(const char playField[HEIGHT][WIDTH], Block& bloc
 	setBlock(block, vec);
 	block.m_state = State::fourth;
 }
-//		 []
-//       []
-//       []
-//       [][]
-//       []
+
 void BlockTypeThree::fourthState(const char playField[HEIGHT][WIDTH], Block& block)
 {
 	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;

@@ -26,7 +26,7 @@ public:
 
 private:
 	void deleteLine(char playField[HEIGHT][WIDTH], int row);
-	void pullBlockToBottom(char playField[HEIGHT][WIDTH], int row);
+	void pullBlocksToBottom(char playField[HEIGHT][WIDTH], int row);
 
 private:
 	char m_playField[HEIGHT][WIDTH];

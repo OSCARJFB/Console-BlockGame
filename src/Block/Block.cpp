@@ -57,7 +57,7 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 	return true;
 }
 
-void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
+void Block::lockBlock(char playField[HEIGHT][WIDTH], const Block& Block)
 {
 	playField[Block.m_vector2[0].y - 1][Block.m_vector2[0].x] = 'X';
 	playField[Block.m_vector2[1].y - 1][Block.m_vector2[1].x] = 'X';
@@ -67,7 +67,7 @@ void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
 	playField[Block.m_vector2[5].y - 1][Block.m_vector2[5].x] = 'X';
 }
 
-bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
+bool Block::isBlockAtBottom(char playField[HEIGHT][WIDTH], const Block& Block)
 {
 	for (int i = 0; i < HEIGHT; ++i)
 	{
@@ -79,7 +79,7 @@ bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
 				{
 					if (playField[i][j] == 'X' || playField[i][j] == '=')
 					{
-						lockToPlayfied(playField, Block);
+						lockBlock(playField, Block);
 						return true;
 					}
 				}
@@ -231,7 +231,7 @@ void Block::spawnByType(const char playField[HEIGHT][WIDTH], Block& block)
 		m_vector2[2].x = x + 1, m_vector2[2].y = y + 1;
 		m_vector2[3].x = x + 2, m_vector2[3].y = y + 1;
 		m_vector2[4].x = x + 3, m_vector2[4].y = y + 1;
-		m_vector2[5].x = x + 3, m_vector2[5].y;
+		m_vector2[5].x = x + 3, m_vector2[5].y = y;
 		break;
 	case Type::BlockTwo:
 		m_vector2[1].x = x + 1, m_vector2[1].y = y;
@@ -249,10 +249,10 @@ void Block::spawnByType(const char playField[HEIGHT][WIDTH], Block& block)
 		break;
 	case Type::BlockFour:
 		m_vector2[1].x = x + 1, m_vector2[1].y = y;
-		m_vector2[1].x = x + 2, m_vector2[1].y = y;
-		m_vector2[1].x = x + 3, m_vector2[1].y = y;
-		m_vector2[1].x = x + 3, m_vector2[1].y = y + 1;
-		m_vector2[1].x = x + 4, m_vector2[1].y = y;
+		m_vector2[2].x = x + 2, m_vector2[2].y = y;
+		m_vector2[3].x = x + 3, m_vector2[3].y = y;
+		m_vector2[4].x = x + 3, m_vector2[4].y = y + 1;
+		m_vector2[5].x = x + 4, m_vector2[5].y = y;
 		break;
 	}
 }
@@ -262,7 +262,7 @@ void Block::spawn(const char playField[HEIGHT][WIDTH])
 	static Type lastType = Type::None;
 	static int TypeCount = 0;
  	m_type = static_cast<Type>(rand() % 4);
-	
+
 	TypeCount += lastType == m_type ? 1 : 0;
 	if (TypeCount == 2)
 	{

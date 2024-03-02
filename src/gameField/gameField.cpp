@@ -66,7 +66,7 @@ void GameField::deleteLine(char playField[HEIGHT][WIDTH], int row)
 	}
 }
 
-void GameField::pullBlockToBottom(char playField[HEIGHT][WIDTH], int row)
+void GameField::pullBlocksToBottom(char playField[HEIGHT][WIDTH], int row)
 {
 	for (int i = row + 1; i > 1; --i)
 	{
@@ -96,7 +96,7 @@ void GameField::scoreCheck(char playField[HEIGHT][WIDTH])
  			if (j == WIDTH - 2)
 			{
 				deleteLine(playField, i);
-				pullBlockToBottom(playField, i);
+				pullBlocksToBottom(playField, i);
 			}
 		}
 	}
@@ -106,7 +106,7 @@ bool GameField::isGameOver(char playField[HEIGHT][WIDTH])
 {
 	for (int i = 0; i < WIDTH; ++i)
 	{
-		if (playField[HEIGHT - 1][i] == 'X')
+		if (playField[1][i] == 'X')
 		{
 			return true;
 		}

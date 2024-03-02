@@ -8,12 +8,6 @@
 
 #pragma once
 
-class Block;
-class BlockTypeOne;
-class BlockTypeTwo;
-class BlockTypeThree;
-class BlockTypeFour;
-
 class BlockProperties
 {
 public:
@@ -26,14 +20,6 @@ public:
 		None,
 	};
 
-	enum State
-	{
-		first,
-		second,
-		third,
-		fourth,
-	};
-
 public:
 	struct Vector2
 	{
@@ -42,6 +28,5 @@ public:
 
 public:
 	Type m_type;
-	State m_state;
 	Vector2 m_vector2[6];
 };

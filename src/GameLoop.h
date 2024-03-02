@@ -12,8 +12,8 @@
 #include <ctime>
 #include "Console/Console.h"
 #include "Block/Block.h"
-#include "gameField/gameFieldSize.h"
-#include "gameField/gameField.h"
+#include "GameField/GameFieldSize.h"
+#include "GameField/GameField.h"
 
 #define TICK_FRAME(x)      \
 if(!x)                     \

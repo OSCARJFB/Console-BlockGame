@@ -15,6 +15,19 @@
 
 #define BLOCK '#'
 
-void initPlayField(char playField[HEIGHT][WIDTH]);
-void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
-void scoreCheck(char playField[HEIGHT][WIDTH]);
+class GameField
+{
+public:
+	GameField(char playField[HEIGHT][WIDTH]);
+	~GameField() = default;
+	void printGameField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
+	void scoreCheck(char playField[HEIGHT][WIDTH]);
+	bool isGameOver(char playField[HEIGHT][WIDTH]);
+
+private:
+	void deleteLine(char playField[HEIGHT][WIDTH], int row);
+	void pullBlockToBottom(char playField[HEIGHT][WIDTH], int row);
+
+private:
+	char m_playField[HEIGHT][WIDTH];
+};

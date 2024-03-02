@@ -9,7 +9,7 @@
 #include "gameField.h"
 #include "../Console/Console.h"
 
-void initPlayField(char playField[HEIGHT][WIDTH])
+GameField::GameField(char playField[HEIGHT][WIDTH])
 {
 	for (int i = 0; i < HEIGHT; ++i)
 	{
@@ -29,7 +29,7 @@ void initPlayField(char playField[HEIGHT][WIDTH])
 	}
 }
 
-void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
+void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
 {
 	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = BLOCK;
 	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = BLOCK;
@@ -58,7 +58,7 @@ void printPlayField(char playField[HEIGHT][WIDTH], const Block& Block, const Con
 	std::fflush(stdout);
 }
 
-static void deleteLine(char playField[HEIGHT][WIDTH], int row)
+void GameField::deleteLine(char playField[HEIGHT][WIDTH], int row)
 {
 	for (int i = 1; i < WIDTH - 1; ++i)
 	{
@@ -66,7 +66,7 @@ static void deleteLine(char playField[HEIGHT][WIDTH], int row)
 	}
 }
 
-static void pullToButtom(char playField[HEIGHT][WIDTH], int row)
+void GameField::pullBlockToBottom(char playField[HEIGHT][WIDTH], int row)
 {
 	for (int i = row + 1; i > 1; --i)
 	{
@@ -80,17 +80,14 @@ static void pullToButtom(char playField[HEIGHT][WIDTH], int row)
 			playField[i][j] = '.';
 
 			int y = j;
-			for (; y < HEIGHT - 2 && playField[y + 1][j] != 'X'; ++y)
-			{
-				
-			}
+			for (; y < HEIGHT - 2 && playField[y + 1][j] != 'X'; ++y);
 
 			playField[y][j] = 'X';
 		}
 	}
 }
 
-void scoreCheck(char playField[HEIGHT][WIDTH])
+void GameField::scoreCheck(char playField[HEIGHT][WIDTH])
 {
 	for (int i = HEIGHT - 1; i > 1; --i)
 	{
@@ -99,8 +96,20 @@ void scoreCheck(char playField[HEIGHT][WIDTH])
  			if (j == WIDTH - 2)
 			{
 				deleteLine(playField, i);
-				pullToButtom(playField, i);
+				pullBlockToBottom(playField, i);
 			}
 		}
 	}
+}
+
+bool GameField::isGameOver(char playField[HEIGHT][WIDTH])
+{
+	for (int i = 0; i < WIDTH; ++i)
+	{
+		if (playField[HEIGHT - 1][i] == 'X')
+		{
+			return true;
+		}
+	}
+	return false;
 }

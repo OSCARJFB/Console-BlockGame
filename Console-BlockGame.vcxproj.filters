@@ -24,22 +24,10 @@
     <ClCompile Include="src\Console\Console.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gameField\gameField.cpp">
+    <ClCompile Include="src\GameField\GameField.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\BlockTypeOne.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\BlockTypeTwo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\BlockTypeThree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Block\BlockTypeFour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +38,7 @@
     <ClInclude Include="src\Console\Console.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameField\gameField.h">
+    <ClInclude Include="src\GameField\GameField.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GameLoop.h">
@@ -59,19 +47,7 @@
     <ClInclude Include="src\Block\BlockProperties.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\gameField\gameFieldSize.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Block\BlockTypeOne.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Block\BlockTypeTwo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Block\BlockTypeThree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Block\BlockTypeFour.h">
+    <ClInclude Include="src\GameField\GameFieldSize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -35,7 +35,7 @@ void run()
 	char playField[HEIGHT][WIDTH];
 
 	std::srand((unsigned int)std::time(NULL));
-	initPlayField(playField);
+	GameField gameField = GameField(playField);
 
 	Console console = Console();
 	Block block = Block(playField);
@@ -52,7 +52,7 @@ void run()
 		{
 			block.spawn(playField);
 		}
-		printPlayField(playField, block, console);
-		scoreCheck(playField);
+		gameField.printGameField(playField, block, console);
+		gameField.scoreCheck(playField);
 	}
 }

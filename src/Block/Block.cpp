@@ -11,41 +11,50 @@
 Block::Block(const char playField[HEIGHT][WIDTH])
 {
 	spawn(playField);
-	m_blockTypeOne = new BlockTypeOne;
-	m_blockTypeTwo = new BlockTypeTwo;
-	m_blockTypeThree = new BlockTypeThree;
-	m_blockTypeFour = new BlockTypeFour;
 };
 
-Block::~Block()
+void Block::blockArrayCpy(Vector2 src[6], Vector2 dest[6])
 {
-	delete m_blockTypeOne;
-	m_blockTypeOne = nullptr;
-	delete m_blockTypeTwo;
-	m_blockTypeTwo = nullptr;
-	delete m_blockTypeThree;
-	m_blockTypeThree = nullptr;
-	delete m_blockTypeFour;
-	m_blockTypeFour = nullptr;
+	for (int i = 0; i < 6; ++i)
+	{
+		dest[i].x = src[i].x;
+		dest[i].y = src[i].y;
+	}
 }
 
-void Block::handleByType(const char playField[HEIGHT][WIDTH], Block& block)
+void Block::rotateBlock(const char playField[HEIGHT][WIDTH], Block& block)
 {
-	switch (block.m_type)
+	Vector2 vec[6];
+	int y = block.m_vector2[0].y;
+	int x = block.m_vector2[0].x;
+	int xDiff, yDiff;
+	
+	blockArrayCpy(block.m_vector2, vec);
+
+	for (int i = 1; i < 6; ++i)
 	{
-	case Type::BlockOne:
-		m_blockTypeOne->rotate(playField, block);
-		break;
-	case Type::BlockTwo:
-		m_blockTypeTwo->rotate(playField, block);
-		break;
-	case Type::BlockThree:
-		m_blockTypeThree->rotate(playField, block);
-		break;
-	case Type::BlockFour:
-		m_blockTypeFour->rotate(playField, block);
-		break;
+		xDiff = vec[i].x - x;
+		yDiff = vec[i].y - y;
+		vec[i].y = y + xDiff;
+		vec[i].x = x - yDiff;
 	}
+	
+	if (isCollision(playField, vec))
+	{
+		return;
+	}
+
+	blockArrayCpy(vec, block.m_vector2);
+}
+
+bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char c)
+{
+	if (c != SPACE_KEY)
+	{
+		return false;
+	}
+	rotateBlock(playField, Block);
+	return true;
 }
 
 void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
@@ -198,16 +207,6 @@ void Block::gravity(Block& Block)
 	Block.m_vector2[5].y += 1;
 }
 
-bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char c)
-{
- 	if (c != SPACE_KEY)
-	{
-		return false;
-	}
-	handleByType(playField, Block);
-	return true;
-}
-
 void Block::reshuffleSpawn()
 {
 	int type = static_cast<int>(m_type);
@@ -222,23 +221,57 @@ void Block::reshuffleSpawn()
 	}
 }
 
+void Block::spawnByType(const char playField[HEIGHT][WIDTH], Block& block)
+{
+	int x = block.m_vector2[0].x, y = block.m_vector2[0].y;
+	switch (block.m_type)
+	{
+	case Type::BlockOne:
+		m_vector2[1].x = x, m_vector2[1].y = y + 1;
+		m_vector2[2].x = x + 1, m_vector2[2].y = y + 1;
+		m_vector2[3].x = x + 2, m_vector2[3].y = y + 1;
+		m_vector2[4].x = x + 3, m_vector2[4].y = y + 1;
+		m_vector2[5].x = x + 3, m_vector2[5].y;
+		break;
+	case Type::BlockTwo:
+		m_vector2[1].x = x + 1, m_vector2[1].y = y;
+		m_vector2[2].x = x + 2, m_vector2[2].y = y;
+		m_vector2[3].x = x + 3, m_vector2[3].y = y;
+		m_vector2[4].x = x + 1, m_vector2[4].y = y + 1;
+		m_vector2[5].x = x + 2, m_vector2[5].y = y + 1;
+		break;
+	case Type::BlockThree:
+		m_vector2[1].x = x + 1, m_vector2[1].y = y + 1;
+		m_vector2[2].x = x + 1, m_vector2[2].y = y;
+		m_vector2[3].x = x + 2, m_vector2[3].y = y;
+		m_vector2[4].x = x + 3, m_vector2[4].y = y;
+		m_vector2[5].x = x + 4, m_vector2[5].y = y;
+		break;
+	case Type::BlockFour:
+		m_vector2[1].x = x + 1, m_vector2[1].y = y;
+		m_vector2[1].x = x + 2, m_vector2[1].y = y;
+		m_vector2[1].x = x + 3, m_vector2[1].y = y;
+		m_vector2[1].x = x + 3, m_vector2[1].y = y + 1;
+		m_vector2[1].x = x + 4, m_vector2[1].y = y;
+		break;
+	}
+}
+
 void Block::spawn(const char playField[HEIGHT][WIDTH])
 {
 	static Type lastType = Type::None;
 	static int TypeCount = 0;
  	m_type = static_cast<Type>(rand() % 4);
 	
-	// Prevent more than 2 continues block of same type to spawn.
 	TypeCount += lastType == m_type ? 1 : 0;
 	if (TypeCount == 2)
 	{
 		reshuffleSpawn();
 		TypeCount = 0;
 	}
-
 	lastType = m_type;
-	m_state = first;
+
 	m_vector2[0].y = 1;
 	m_vector2[0].x = (WIDTH - 1) / 2;
-	handleByType(playField, *this);
+	spawnByType(playField, *this);
 }

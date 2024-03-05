@@ -15,7 +15,7 @@ Console::Console()
 	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
 	{
 		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get current handle.", dError);
+		std::printf("Error %d while trying to get input handle.", dError);
 		std::exit(dError);
 	}
 
@@ -26,6 +26,14 @@ Console::Console()
 		std::exit(dError);
 	}
 	SetConsoleMode(m_hInput, m_dMode & ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT));
+
+	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get output handle.", dError);
+		std::exit(dError);
+	}
+
 }
 
 Console::~Console()
@@ -34,6 +42,11 @@ Console::~Console()
 #ifdef _DEBUG
 	printf("Terminal was restored successfully");
 #endif
+}
+
+void Console::clearScreen(void) const
+{
+	std::system("cls");
 }
 
 char Console::kbhit()
@@ -53,9 +66,12 @@ char Console::kbhit()
 	return (char)cAsciiKey;
 }
 
-void Console::clearScreen(void) const 
+template <typename T>
+void Console::print(T type, short x, short y) const
 {
-	std::system("cls");
+	DWORD lpNumberofCharsWritten = 0;
+	SetConsoleCursorPosition(m_hOutput, COORD{ x, y });
+	std::cout << T;
 }
 
 #elif __linux__

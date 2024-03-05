@@ -59,12 +59,10 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 
 void Block::lockBlock(char playField[HEIGHT][WIDTH], const Block& Block)
 {
-	playField[Block.m_vector2[0].y - 1][Block.m_vector2[0].x] = 'X';
-	playField[Block.m_vector2[1].y - 1][Block.m_vector2[1].x] = 'X';
-	playField[Block.m_vector2[2].y - 1][Block.m_vector2[2].x] = 'X';
-	playField[Block.m_vector2[3].y - 1][Block.m_vector2[3].x] = 'X';
-	playField[Block.m_vector2[4].y - 1][Block.m_vector2[4].x] = 'X';
-	playField[Block.m_vector2[5].y - 1][Block.m_vector2[5].x] = 'X';
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		playField[Block.m_vector2[i].y - 1][Block.m_vector2[i].x] = 'X';
+	}
 }
 
 bool Block::isBlockAtBottom(char playField[HEIGHT][WIDTH], const Block& Block)
@@ -73,7 +71,7 @@ bool Block::isBlockAtBottom(char playField[HEIGHT][WIDTH], const Block& Block)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			for (int n = 0; n < 6; ++n)
+			for (int n = 0; n < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++n)
 			{
 				if (Block.m_vector2[n].y == i && Block.m_vector2[n].x == j)
 				{
@@ -119,12 +117,10 @@ bool Block::left(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].x -= 1;
-	Block.m_vector2[1].x -= 1;
-	Block.m_vector2[2].x -= 1;
-	Block.m_vector2[3].x -= 1;
-	Block.m_vector2[4].x -= 1;
-	Block.m_vector2[5].x -= 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].x -= 1;
+	}
 
 	return true;
 }
@@ -145,12 +141,11 @@ bool Block::right(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].x += 1;
-	Block.m_vector2[1].x += 1;
-	Block.m_vector2[2].x += 1;
-	Block.m_vector2[3].x += 1;
-	Block.m_vector2[4].x += 1;
-	Block.m_vector2[5].x += 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].x += 1;
+	}
+
 	return true;
 }
 
@@ -170,12 +165,11 @@ bool Block::down(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].y += 1;
-	Block.m_vector2[1].y += 1;
-	Block.m_vector2[2].y += 1;
-	Block.m_vector2[3].y += 1;
-	Block.m_vector2[4].y += 1;
-	Block.m_vector2[5].y += 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].y += 1;
+	}
+
 	return true;
 }
 

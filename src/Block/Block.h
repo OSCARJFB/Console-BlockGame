@@ -10,7 +10,6 @@
 
 #include <cstdlib>
 #include <ctime>
-#include <cmath>
 #include "BlockProperties.h"
 #include "../GameField/GameFieldSize.h"
 

@@ -29,7 +29,7 @@ GameField::GameField(char playField[HEIGHT][WIDTH])
 	}
 }
 
-void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
+void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block, Console& console)
 {
 	int i = sizeof(Block.m_vector2) / sizeof(Block::Vector2);
 	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
@@ -42,7 +42,7 @@ void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			std::printf("%c", playField[i][j]);
+			console.print(playField[i][j], j, i);
 		}
 		std::printf("\n");
 	}

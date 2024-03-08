@@ -8,8 +8,6 @@
 
 #include "Console.h"
 
-#ifdef _WIN32
-
 Console::Console()
 {
 	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
@@ -65,59 +63,3 @@ char Console::kbhit()
 	}
 	return (char)cAsciiKey;
 }
-
-template <typename T>
-void Console::print(T type, short x, short y) const
-{
-	DWORD lpNumberofCharsWritten = 0;
-	SetConsoleCursorPosition(m_hOutput, COORD{ x, y });
-	std::cout << T;
-}
-
-#elif __linux__
-
-Console::Console()
-{
-	if(tcgetattr(STDIN_FILENO, &m_original_term) == -1)
-	{
-		std::perror("tcgetattr");
-		std::exit(-1);
-	}
-
-	m_raw_term = m_original_term;
-	m_raw_term.c_lflag &= ~(ICANON | ECHO);
-
-	if(tcsetattr(STDIN_FILENO, TCSAFLUSH, &m_raw_term) == -1)
-	{
-		std::perror("tcsetattr");
-		std::exit(-1);
-	}
-}
-
-Console::~Console()
-{
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &m_original_term);
-#ifdef _DEBUG
-	printf("Terminal was restored successfully");
-#endif
-}
-
-char Console::kbhit()
-{
-	long bytes = 0;
-	char cr = 0;
-	ioctl(STDIN_FILENO, FIONREAD, &bytes);
-	if (bytes > 0)
-	{
-		read(STDIN_FILENO, &cr, sizeof(char));
-	}
-	std::fflush(stdout);
-	return cr;
-}
-
-void Console::clearScreen()
-{
-	std::system("clear");
-}
-
-#endif

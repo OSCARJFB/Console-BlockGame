@@ -20,14 +20,11 @@ class GameField
 public:
 	GameField(char playField[HEIGHT][WIDTH]);
 	~GameField() = default;
-	void printGameField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console);
+	void printGameField(char playField[HEIGHT][WIDTH], const Block& Block, Console& console);
 	void scoreCheck(char playField[HEIGHT][WIDTH]);
 	bool isGameOver(char playField[HEIGHT][WIDTH]);
 
 private:
 	void deleteLine(char playField[HEIGHT][WIDTH], int row);
 	void pullBlocksToBottom(char playField[HEIGHT][WIDTH], int row);
-
-private:
-	char m_playField[HEIGHT][WIDTH];
 };

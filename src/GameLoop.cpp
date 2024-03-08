@@ -40,7 +40,7 @@ void run()
 	Console console = Console();
 	Block block = Block(playField);
 
-	while ((c = console.kbhit()) != EOF)
+	while ((c = console.kbhit()) != EOF && !gameField.isGameOver(playField))
 	{
 		if (!block.rotate(block, playField, c) && !block.direction(playField, c, block))
 		{
@@ -48,7 +48,7 @@ void run()
 				block.gravity(block);
 		}
 
-		if (block.isBottomCollision(playField, block))
+		if (block.isBlockAtBottom(playField, block))
 		{
 			block.spawn(playField);
 		}

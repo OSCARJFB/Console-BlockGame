@@ -31,15 +31,15 @@ public:
 	void gravity(Block& block);
 	bool direction(const char playField[HEIGHT][WIDTH], const char c, Block& block);
 	bool rotate(Block& block, const char playField[HEIGHT][WIDTH], char c);
-	bool isBottomCollision(char playField[HEIGHT][WIDTH], const Block& block);
-	bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[6]);
+	bool isBlockAtBottom(char playField[HEIGHT][WIDTH], const Block& block);
 
 private:
 	void blockArrayCpy(Vector2 src[6], Vector2 dest[6]);
 	void rotateBlock(const char playField[HEIGHT][WIDTH], Block& block);
 	void reshuffleSpawn();
 	void spawnByType(const char playField[HEIGHT][WIDTH], Block& block);
-	void lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& block);
+	void lockBlock(char playField[HEIGHT][WIDTH], const Block& block);
+	bool isCollision(const char playField[HEIGHT][WIDTH], const Vector2 vec[6]);
 	bool left(const char playField[HEIGHT][WIDTH], Block& block);
 	bool right(const char playField[HEIGHT][WIDTH], Block& block);
 	bool down(const char playField[HEIGHT][WIDTH], Block& Block);

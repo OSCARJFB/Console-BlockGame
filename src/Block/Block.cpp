@@ -57,29 +57,27 @@ bool Block::rotate(Block& Block, const char playField[HEIGHT][WIDTH], const char
 	return true;
 }
 
-void Block::lockToPlayfied(char playField[HEIGHT][WIDTH], const Block& Block)
+void Block::lockBlock(char playField[HEIGHT][WIDTH], const Block& Block)
 {
-	playField[Block.m_vector2[0].y - 1][Block.m_vector2[0].x] = 'X';
-	playField[Block.m_vector2[1].y - 1][Block.m_vector2[1].x] = 'X';
-	playField[Block.m_vector2[2].y - 1][Block.m_vector2[2].x] = 'X';
-	playField[Block.m_vector2[3].y - 1][Block.m_vector2[3].x] = 'X';
-	playField[Block.m_vector2[4].y - 1][Block.m_vector2[4].x] = 'X';
-	playField[Block.m_vector2[5].y - 1][Block.m_vector2[5].x] = 'X';
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		playField[Block.m_vector2[i].y - 1][Block.m_vector2[i].x] = 'X';
+	}
 }
 
-bool Block::isBottomCollision(char playField[HEIGHT][WIDTH], const Block& Block)
+bool Block::isBlockAtBottom(char playField[HEIGHT][WIDTH], const Block& Block)
 {
 	for (int i = 0; i < HEIGHT; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			for (int n = 0; n < 6; ++n)
+			for (int n = 0; n < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++n)
 			{
 				if (Block.m_vector2[n].y == i && Block.m_vector2[n].x == j)
 				{
 					if (playField[i][j] == 'X' || playField[i][j] == '=')
 					{
-						lockToPlayfied(playField, Block);
+						lockBlock(playField, Block);
 						return true;
 					}
 				}
@@ -119,12 +117,10 @@ bool Block::left(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].x -= 1;
-	Block.m_vector2[1].x -= 1;
-	Block.m_vector2[2].x -= 1;
-	Block.m_vector2[3].x -= 1;
-	Block.m_vector2[4].x -= 1;
-	Block.m_vector2[5].x -= 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].x -= 1;
+	}
 
 	return true;
 }
@@ -145,12 +141,11 @@ bool Block::right(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].x += 1;
-	Block.m_vector2[1].x += 1;
-	Block.m_vector2[2].x += 1;
-	Block.m_vector2[3].x += 1;
-	Block.m_vector2[4].x += 1;
-	Block.m_vector2[5].x += 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].x += 1;
+	}
+
 	return true;
 }
 
@@ -170,12 +165,11 @@ bool Block::down(const char playField[HEIGHT][WIDTH], Block& Block)
 		return false;
 	}
 
-	Block.m_vector2[0].y += 1;
-	Block.m_vector2[1].y += 1;
-	Block.m_vector2[2].y += 1;
-	Block.m_vector2[3].y += 1;
-	Block.m_vector2[4].y += 1;
-	Block.m_vector2[5].y += 1;
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		Block.m_vector2[i].y += 1;
+	}
+
 	return true;
 }
 
@@ -231,7 +225,7 @@ void Block::spawnByType(const char playField[HEIGHT][WIDTH], Block& block)
 		m_vector2[2].x = x + 1, m_vector2[2].y = y + 1;
 		m_vector2[3].x = x + 2, m_vector2[3].y = y + 1;
 		m_vector2[4].x = x + 3, m_vector2[4].y = y + 1;
-		m_vector2[5].x = x + 3, m_vector2[5].y;
+		m_vector2[5].x = x + 3, m_vector2[5].y = y;
 		break;
 	case Type::BlockTwo:
 		m_vector2[1].x = x + 1, m_vector2[1].y = y;
@@ -249,10 +243,10 @@ void Block::spawnByType(const char playField[HEIGHT][WIDTH], Block& block)
 		break;
 	case Type::BlockFour:
 		m_vector2[1].x = x + 1, m_vector2[1].y = y;
-		m_vector2[1].x = x + 2, m_vector2[1].y = y;
-		m_vector2[1].x = x + 3, m_vector2[1].y = y;
-		m_vector2[1].x = x + 3, m_vector2[1].y = y + 1;
-		m_vector2[1].x = x + 4, m_vector2[1].y = y;
+		m_vector2[2].x = x + 2, m_vector2[2].y = y;
+		m_vector2[3].x = x + 3, m_vector2[3].y = y;
+		m_vector2[4].x = x + 3, m_vector2[4].y = y + 1;
+		m_vector2[5].x = x + 4, m_vector2[5].y = y;
 		break;
 	}
 }
@@ -262,7 +256,7 @@ void Block::spawn(const char playField[HEIGHT][WIDTH])
 	static Type lastType = Type::None;
 	static int TypeCount = 0;
  	m_type = static_cast<Type>(rand() % 4);
-	
+
 	TypeCount += lastType == m_type ? 1 : 0;
 	if (TypeCount == 2)
 	{

@@ -31,12 +31,11 @@ GameField::GameField(char playField[HEIGHT][WIDTH])
 
 void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block, const Console& console)
 {
-	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = BLOCK;
-	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = BLOCK;
-	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = BLOCK;
-	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = BLOCK;
-	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = BLOCK;
-	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = BLOCK;
+	int i = sizeof(Block.m_vector2) / sizeof(Block::Vector2);
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		playField[Block.m_vector2[i].y][Block.m_vector2[i].x] = BLOCK;
+	}
 
 	console.clearScreen();
 	for (int i = 0; i < HEIGHT; ++i)
@@ -48,14 +47,10 @@ void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block
 		std::printf("\n");
 	}
 
-	playField[Block.m_vector2[0].y][Block.m_vector2[0].x] = '.';
-	playField[Block.m_vector2[1].y][Block.m_vector2[1].x] = '.';
-	playField[Block.m_vector2[2].y][Block.m_vector2[2].x] = '.';
-	playField[Block.m_vector2[3].y][Block.m_vector2[3].x] = '.';
-	playField[Block.m_vector2[4].y][Block.m_vector2[4].x] = '.';
-	playField[Block.m_vector2[5].y][Block.m_vector2[5].x] = '.';
-
-	std::fflush(stdout);
+	for (int i = 0; i < sizeof(Block.m_vector2) / sizeof(Block::Vector2); ++i)
+	{
+		playField[Block.m_vector2[i].y][Block.m_vector2[i].x] = '.';
+	}
 }
 
 void GameField::deleteLine(char playField[HEIGHT][WIDTH], int row)
@@ -66,7 +61,7 @@ void GameField::deleteLine(char playField[HEIGHT][WIDTH], int row)
 	}
 }
 
-void GameField::pullBlockToBottom(char playField[HEIGHT][WIDTH], int row)
+void GameField::pullBlocksToBottom(char playField[HEIGHT][WIDTH], int row)
 {
 	for (int i = row + 1; i > 1; --i)
 	{
@@ -96,7 +91,7 @@ void GameField::scoreCheck(char playField[HEIGHT][WIDTH])
  			if (j == WIDTH - 2)
 			{
 				deleteLine(playField, i);
-				pullBlockToBottom(playField, i);
+				pullBlocksToBottom(playField, i);
 			}
 		}
 	}
@@ -106,7 +101,7 @@ bool GameField::isGameOver(char playField[HEIGHT][WIDTH])
 {
 	for (int i = 0; i < WIDTH; ++i)
 	{
-		if (playField[HEIGHT - 1][i] == 'X')
+		if (playField[1][i] == 'X')
 		{
 			return true;
 		}

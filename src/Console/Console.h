@@ -8,32 +8,39 @@
 
 #pragma once 
 
-#include <cstdlib>
-#include <cstdio>
 #include <iostream>
 #include <Windows.h>
 
 class Console
 {
 public:
-	Console();
+	Console(bool bToogleMode);
 	~Console();
 
 public:
-	void clearScreen() const;
-	char kbhit();
+	void ClearScreen() const;
+	char ReadKey();
+	void SetConsoleColor(int nColor);
 
 public:	
 	template <typename T>
-	void print(T type, short x, short y)
+	void Print(T tOutPut, short nX, short nY)
 	{
 		DWORD lpNumberofCharsWritten = 0;
-		SetConsoleCursorPosition(m_hOutput, COORD{ x, y });
-		std::cout << type;
+		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
+		std::cout << tOutPut;
 	}
+
+private: 
+	void SetHandlers();
+	void SetMode(bool bToogleMode);
+	void SetBufferInfo();
 
 private:
 	DWORD m_dMode = 0;
 	HANDLE m_hInput = nullptr;
 	HANDLE m_hOutput = nullptr;
+	CONSOLE_SCREEN_BUFFER_INFO csbInfostdin;
+	CONSOLE_SCREEN_BUFFER_INFO csbInfostdout;
+	WORD wBaseColor = 0;
 };

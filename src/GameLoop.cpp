@@ -37,10 +37,10 @@ void run()
 	std::srand((unsigned int)std::time(NULL));
 	GameField gameField = GameField(playField);
 
-	Console console = Console();
+	Console console = Console(true);
 	Block block = Block(playField);
 
-	while ((c = console.kbhit()) != EOF && !gameField.isGameOver(playField))
+	while ((c = console.ReadKey()) != EOF && !gameField.isGameOver(playField))
 	{
 		if (!block.rotate(block, playField, c) && !block.direction(playField, c, block))
 		{

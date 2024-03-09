@@ -37,12 +37,12 @@ void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block
 		playField[Block.m_vector2[i].y][Block.m_vector2[i].x] = BLOCK;
 	}
 
-	console.clearScreen();
+	console.ClearScreen();
 	for (int i = 0; i < HEIGHT; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
-			console.print(playField[i][j], j, i);
+			console.Print(playField[i][j], j, i);
 		}
 		std::printf("\n");
 	}

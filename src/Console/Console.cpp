@@ -8,30 +8,11 @@
 
 #include "Console.h"
 
-Console::Console()
+Console::Console(bool bToogleMode)
 {
-	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get input handle.", dError);
-		std::exit(dError);
-	}
-
-	if (!GetConsoleMode(m_hInput, &m_dMode))
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get the current console mode.", dError);
-		std::exit(dError);
-	}
-	SetConsoleMode(m_hInput, m_dMode & ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT));
-
-	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get output handle.", dError);
-		std::exit(dError);
-	}
-
+	SetHandlers();
+	SetMode(bToogleMode);
+	SetBufferInfo();
 }
 
 Console::~Console()
@@ -42,12 +23,70 @@ Console::~Console()
 #endif
 }
 
-void Console::clearScreen(void) const
+void Console::SetHandlers()
+{
+	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get input handle.", dError);
+		std::exit(dError);
+	}
+
+	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get output handle.", dError);
+		std::exit(dError);
+	}
+}
+
+void Console::SetMode(bool bToogleMode)
+{
+	if (!bToogleMode)
+	{
+		return;
+	}
+
+	if (!GetConsoleMode(m_hInput, &m_dMode))
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get the current console mode.", dError);
+		std::exit(dError);
+	}
+
+	SetConsoleMode(m_hInput, m_dMode & ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT));
+
+	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get output handle.", dError);
+		std::exit(dError);
+	}
+}
+
+void Console::SetBufferInfo()
+{
+	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get input handle.", dError);
+		std::exit(dError);
+	}
+
+	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get output handle.", dError);
+		std::exit(dError);
+	}
+}
+
+void Console::ClearScreen(void) const
 {
 	std::system("cls");
 }
 
-char Console::kbhit()
+char Console::ReadKey()
 {
 	CHAR cAsciiKey = 0;
 	DWORD dEvents = 0;
@@ -62,4 +101,8 @@ char Console::kbhit()
 		}
 	}
 	return (char)cAsciiKey;
+}
+
+void Console::SetConsoleColor(int nColor)
+{
 }

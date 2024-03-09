@@ -14,33 +14,42 @@
 class Console
 {
 public:
-	Console(bool bToogleMode);
+	Console(BOOL bToogleMode);
 	~Console();
 
 public:
 	void ClearScreen() const;
-	char ReadKey();
-	void SetConsoleColor(int nColor);
+	CHAR ReadKey();
+	void SetConsoleColor(WORD wColor);
 
 public:	
 	template <typename T>
-	void Print(T tOutPut, short nX, short nY)
+	void Print(T tOutPut, SHORT nX, SHORT nY)
 	{
 		DWORD lpNumberofCharsWritten = 0;
 		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
 		std::cout << tOutPut;
 	}
 
+	template <typename T>
+	void Print(T tOutPut, SHORT nX, SHORT nY, WORD wColor)
+	{
+		SetConsoleColor(wColor);
+		DWORD lpNumberofCharsWritten = 0;
+		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
+		std::cout << tOutPut;
+		SetConsoleColor(m_wBaseColor);
+	}
+
 private: 
 	void SetHandlers();
-	void SetMode(bool bToogleMode);
 	void SetBufferInfo();
+	void SetMode(BOOL bToogleMode);
 
 private:
 	DWORD m_dMode = 0;
 	HANDLE m_hInput = nullptr;
 	HANDLE m_hOutput = nullptr;
-	CONSOLE_SCREEN_BUFFER_INFO csbInfostdin;
-	CONSOLE_SCREEN_BUFFER_INFO csbInfostdout;
-	WORD wBaseColor = 0;
+	CONSOLE_SCREEN_BUFFER_INFO m_csbInfo;
+	WORD m_wBaseColor = 0;
 };

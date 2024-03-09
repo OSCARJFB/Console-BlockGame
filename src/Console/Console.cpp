@@ -8,11 +8,11 @@
 
 #include "Console.h"
 
-Console::Console(bool bToogleMode)
+Console::Console(BOOL bToogleMode)
 {
 	SetHandlers();
-	SetMode(bToogleMode);
 	SetBufferInfo();
+	SetMode(bToogleMode);
 }
 
 Console::~Console()
@@ -40,7 +40,19 @@ void Console::SetHandlers()
 	}
 }
 
-void Console::SetMode(bool bToogleMode)
+void Console::SetBufferInfo()
+{
+	if (!GetConsoleScreenBufferInfo(m_hOutput, &m_csbInfo))
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to get output buffer info.", dError);
+		std::exit(dError);
+	}
+
+	m_wBaseColor = m_csbInfo.wAttributes;
+}
+
+void Console::SetMode(BOOL bToogleMode)
 {
 	if (!bToogleMode)
 	{
@@ -55,30 +67,6 @@ void Console::SetMode(bool bToogleMode)
 	}
 
 	SetConsoleMode(m_hInput, m_dMode & ~(ENABLE_ECHO_INPUT | ENABLE_LINE_INPUT));
-
-	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get output handle.", dError);
-		std::exit(dError);
-	}
-}
-
-void Console::SetBufferInfo()
-{
-	if ((m_hInput = GetStdHandle(STD_INPUT_HANDLE)) == INVALID_HANDLE_VALUE)
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get input handle.", dError);
-		std::exit(dError);
-	}
-
-	if ((m_hOutput = GetStdHandle(STD_OUTPUT_HANDLE)) == INVALID_HANDLE_VALUE)
-	{
-		DWORD dError = GetLastError();
-		std::printf("Error %d while trying to get output handle.", dError);
-		std::exit(dError);
-	}
 }
 
 void Console::ClearScreen(void) const
@@ -86,7 +74,7 @@ void Console::ClearScreen(void) const
 	std::system("cls");
 }
 
-char Console::ReadKey()
+CHAR Console::ReadKey()
 {
 	CHAR cAsciiKey = 0;
 	DWORD dEvents = 0;
@@ -103,6 +91,12 @@ char Console::ReadKey()
 	return (char)cAsciiKey;
 }
 
-void Console::SetConsoleColor(int nColor)
+void Console::SetConsoleColor(WORD wColor)
 {
+	if (!SetConsoleTextAttribute(m_hOutput, wColor))
+	{
+		DWORD dError = GetLastError();
+		std::printf("Error %d while trying to set the console attribute.", dError);
+		std::exit(dError);
+	}
 }

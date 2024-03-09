@@ -38,10 +38,22 @@ void GameField::printGameField(char playField[HEIGHT][WIDTH], const Block& Block
 	}
 
 	console.ClearScreen();
+	int color = std::rand() % 4 + 1;
 	for (int i = 0; i < HEIGHT; ++i)
 	{
 		for (int j = 0; j < WIDTH; ++j)
 		{
+			if (playField[i][j] == BLOCK)
+			{
+				console.Print(playField[i][j], j, i, color);
+				continue;
+			}
+			if (playField[i][j] == 'X')
+			{
+				console.Print(playField[i][j], j, i, color);
+				continue;
+			}
+
 			console.Print(playField[i][j], j, i);
 		}
 		std::printf("\n");

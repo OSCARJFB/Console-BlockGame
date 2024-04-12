@@ -8,32 +8,60 @@
 
 #pragma once 
 
-#include <cstdlib>
-#include <cstdio>
 #include <iostream>
 #include <Windows.h>
 
 class Console
 {
 public:
-	Console();
+	Console(BOOL bToogleMode = true);
 	~Console();
 
 public:
-	void clearScreen() const;
-	char kbhit();
+	void ClearScreen() const;
+	WORD ReadArrowKey();
+	CHAR ReadKey();
+	void SetColor(WORD wColor);
+	COORD GetCursorCoordinates();
+	void SetCursorCoordinates(SHORT nX, SHORT nY);
 
-public:	
+public:
 	template <typename T>
-	void print(T type, short x, short y)
+	void Print(T tOutPut, SHORT nX, SHORT nY)
 	{
 		DWORD lpNumberofCharsWritten = 0;
-		SetConsoleCursorPosition(m_hOutput, COORD{ x, y });
-		std::cout << type;
+		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
+		std::cout << tOutPut;
 	}
+
+	template <typename T>
+	void Print(T tOutPut, SHORT nX, SHORT nY, WORD wColor)
+	{
+		SetColor(wColor);
+		DWORD lpNumberofCharsWritten = 0;
+		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
+		std::cout << tOutPut;
+		SetColor(m_wBaseColor);
+	}
+
+public:
+	enum class Vk : WORD
+	{
+		left = 1,
+		up,
+		right,
+		down,
+	};
+
+private:
+	void SetHandlers();
+	void SetBufferInfo();
+	void SetMode(BOOL bToogleMode);
 
 private:
 	DWORD m_dMode = 0;
 	HANDLE m_hInput = nullptr;
 	HANDLE m_hOutput = nullptr;
+	CONSOLE_SCREEN_BUFFER_INFO m_csbInfo;
+	WORD m_wBaseColor = 0;
 };

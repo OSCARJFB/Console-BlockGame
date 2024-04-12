@@ -12,16 +12,14 @@ static bool framelock(void)
 {
 	static time_t start = 0, end = 0;
 
-	if (start == 0)
-	{
+	if (start == 0) {
 		start = time(NULL);
 		return false;
 	}
 
 	end = time(NULL);
 	const double diff = difftime(end, start);
-	if (diff >= 1.0)
-	{
+	if (diff >= 1.0) {
 		start = end = 0;
 		return true;
 	}
@@ -37,21 +35,16 @@ void run()
 	std::srand((unsigned int)std::time(NULL));
 	GameField gameField = GameField(playField);
 
-	Console console = Console();
+	Console console = Console(true);
 	Block block = Block(playField);
 
-	while ((c = console.kbhit()) != EOF && !gameField.isGameOver(playField))
-	{
-		if (!block.rotate(block, playField, c) && !block.direction(playField, c, block))
-		{
+	while ((c = console.ReadKey()) != EOF && !gameField.isGameOver(playField)) {
+		if (!block.rotate(block, playField, c) && !block.direction(playField, c, block)) {
 			TICK_FRAME(framelock())
 				block.gravity(block);
 		}
-
 		if (block.isBlockAtBottom(playField, block))
-		{
 			block.spawn(playField);
-		}
 		gameField.printGameField(playField, block, console);
 		gameField.scoreCheck(playField);
 	}

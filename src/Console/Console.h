@@ -14,15 +14,18 @@
 class Console
 {
 public:
-	Console(BOOL bToogleMode);
+	Console(BOOL bToogleMode = true);
 	~Console();
 
 public:
 	void ClearScreen() const;
+	WORD ReadArrowKey();
 	CHAR ReadKey();
-	void SetConsoleColor(WORD wColor);
+	void SetColor(WORD wColor);
+	COORD GetCursorCoordinates();
+	void SetCursorCoordinates(SHORT nX, SHORT nY);
 
-public:	
+public:
 	template <typename T>
 	void Print(T tOutPut, SHORT nX, SHORT nY)
 	{
@@ -34,14 +37,23 @@ public:
 	template <typename T>
 	void Print(T tOutPut, SHORT nX, SHORT nY, WORD wColor)
 	{
-		SetConsoleColor(wColor);
+		SetColor(wColor);
 		DWORD lpNumberofCharsWritten = 0;
 		SetConsoleCursorPosition(m_hOutput, COORD{ nX, nY });
 		std::cout << tOutPut;
-		SetConsoleColor(m_wBaseColor);
+		SetColor(m_wBaseColor);
 	}
 
-private: 
+public:
+	enum class Vk : WORD
+	{
+		left = 1,
+		up,
+		right,
+		down,
+	};
+
+private:
 	void SetHandlers();
 	void SetBufferInfo();
 	void SetMode(BOOL bToogleMode);
